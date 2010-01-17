@@ -1,0 +1,7 @@
+<h2>開発履歴</h2>
+<% @history.each {|his| %>
+<%= announce(his.shift) %>
+<% his.each {|h| %>
+<%= wrap_message(1, h) %>
+<% } %>
+<% } %>

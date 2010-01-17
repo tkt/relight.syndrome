@@ -1,0 +1,57 @@
+<h2>はじめに</h2>
+<p>
+<strong><%= GAME_TITLE %></strong>は、Ultima Online上で行われている<a href="http://bsoup.skr.jp/uowolf/nanasi.html">人狼名無し村</a>をウェブチャット形式で再現した、リアルタイム型の短期人狼ゲームです。1ゲームの所要時間はおよそ1時間です。<br>
+</p>
+<p>
+はじめての方は<a href="./?cmd=doc">しおり</a>をご覧下さい。<strong>経験者の方ははじめての方でも楽しみやすい村作りにご協力下さい</strong>。
+</p>
+<p>
+人狼BBS型長期人狼の<a href="http://wtl.rdy.jp/w/">人狼達の黄昏</a>、まとめサイトの<a href="http://wtlz.rdy.jp/w3/">人狼達の黄昏 宴の後に</a>、<a href="http://jbbs.livedoor.jp/game/35963/">サポート用外部掲示板</a>もご利用下さい。
+</p>
+
+<h2>村のリスト</h2>
+<table class="list">
+<% @villages.each {|v| %>
+<tr>
+<td><a href="./?vid=<%= v['vid'] %>"><%= v['vid'] %> <%= v['name'] %></a></td>
+<td nowrap><%= v['state_str'] %></td>
+</tr>
+<% } %>
+</table>
+
+<p>
+<!-- <a href="?cmd=mkvil">村を作成する</a> / -->
+<a href="?cmd=log">終了した村の記録</a>
+</p>
+
+<h2>お知らせ (<a href="?cmd=info">全て見る</a>) (<a href="?cmd=history">開発履歴</a>)</h2>
+
+<% @changes.each {|d| %>
+<h3><%= d.shift %></h3>
+<ul>
+<% d.each {|c| %>
+<li><%= c.sub(/\([^)]*\)$/, '') %></li>
+<% } %>
+</ul>
+<% } %>
+
+</div>
+
+<div class="footer">
+<p>
+<a href="http://bsoup.skr.jp/uowolf/nanasi.html"><img src="<%= S[:image_dir] %>uo.jpg" alt="人狼名無し村"></a>
+<a href="http://mshe.skr.jp/"><img src="<%= S[:image_dir] %>jbbq.jpg" alt="四国"></a>
+</p>
+夜明けをどきどきしながら待っていたあの頃にもどろう<br>
+<a href="./"><%= LW_NAME %></a> <%= LW_VERSION %> by <a href="http://wtl.rdy.jp/d/">twilight</a>, 
+(based on <a href="http://mshe.skr.jp/">四国</a> by <a href="http://shinh.skr.jp/">she</a>), 
+and face graphics by <a href="http://www.f7.dion.ne.jp/~wwe/">WWE</a>
+</div>
+
+</td></tr></table>
+</td></tr></table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<%= logize(HEAD1.gsub(/^<script.*\n/, '')) %>
+<title><%= "#{GAME_TITLE} #{@vil.vid} #{@vil.name}" %></title>
+<%= HEAD2.sub(/^<body.*/, '<body>') %>
+<%= logize(HEAD3) %>
+<%= @vil.vid %> <%= @vil.name %>
+
+<p>
+<% timeline = @vil.timeline; timeline.each_with_index {|d, index| %>
+<% if index == date %>
+<span class="time"><%= d %></span> 
+<% else %>
+<a href="<%= index.to_s %>.html"><%= d %></a> 
+<% end %>
+<% } %>
+</p>
+
+<div id="discuss">
+<%= logize(File.read(S[:vildb_path] + "#{@vil.vid}_#{date}.html")) %>
+</div>
+<% if @vil.date != date %>
+<a href="<%= date + 1 %>.html">次の日へ</a>
+<% end %>
+<%= logize(FOOT) %>
+</div></body></html>

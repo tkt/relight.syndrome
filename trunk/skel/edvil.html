@@ -1,0 +1,9 @@
+<h2><%= @vid %>村の編集</h2>
+
+<form action="." method="post" id="vil_form">
+<input type="hidden" name="cmd" value="edvil">
+<table width="100%">
+<tr>
+<td>村の名前: </td><td colspan="3"><input name="name" value="<%= @vil.name %>"></td>
+</tr>
+</table>

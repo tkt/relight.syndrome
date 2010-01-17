@@ -1,0 +1,10 @@
+<% if @vil.phase == Vil::Phase::Night %>
+<div id="exitform">
+<form action="." method="post">
+<input type="hidden" name="cmd" value="skill" />
+<input value="自殺" id="skillbutton" type="button" onclick="skill(<%= @vil.vid %>); return false;" tabindex="-1" />
+<img src="<%= S[:image_dir] %>load.gif" id="skillloadicon" style="display: none">
+<span id="skillfail" style="display: none"><br />自殺に失敗しました</span>
+</form>
+</div>
+<% end %>

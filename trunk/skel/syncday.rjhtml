@@ -1,0 +1,1 @@
+<%= @discussions[0, @discussions.size - @mid].join.chomp %>

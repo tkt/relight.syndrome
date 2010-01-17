@@ -1,0 +1,117 @@
+<div id="player_wrap">
+<div id="player">
+<% bg = @vil.state == 2 ? %Q( style="background-image: url(#{S[:image_dir]}skill#{@player.skill.sid}.jpg)") : '' %>
+<table class="action_box" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td id="face"><img src="<%= S[:image_dir] %>body<%= @player.color %>.jpg"></td>
+	<td id="descript"<%= bg %>>
+		<p><%= @player.name %> （<%= @player.userid %>）</p>
+		<p>
+<% if (@vil.state == 2) %>
+あなたは <strong><%= @player.skill.name %></strong> です。
+<% if @player.skill.respond_to?('pass') %><br><%= @player.skill.pass_s %><% end %>
+<% end %>
+		</p>
+	</td>
+</tr></tbody>
+</table>
+<p id="actstate" style="display: none;"><%= @state %></p>
+<p id="livestate" style="display: none;">live</p>
+
+<% if (@vil.phase == Vil::Phase::Sun || @vil.phase == Vil::Phase::Night || (@vil.phase == Vil::Phase::Apology && @vil.vtargets.index(@player) && @vil.voting.first == @player)) %>
+<% act_class = (@vil.phase == Vil::Phase::Night) ? 'night' : 'action' %>
+<form action="." method="post">
+<textarea name="message" rows="3" class="<%= act_class %>_textarea" id="<%= act_class %>"></textarea><br>
+<input type="hidden" name="cmd" value="post" />
+<input value="発言" id="stdsaybutton" type="button" onclick="post(<%= @vil.vid %>, <%= @player.pid %>, '<%= act_class %>'); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
+<span id="postfail" style="display: none">投稿に失敗しました</span>
+</form>
+<% end %>
+
+<% if (@vil.phase == Vil::Phase::Apology && @vil.vtargets.index(@player) && @vil.voting.first == @player) %>
+<form action="." method="post">
+<input type="hidden" name="vid" value="<%= @vil.vid %>" />
+<input type="hidden" name="cmd" value="commit" />
+<input type="submit" value="弁明終了">
+</form>
+<% end %>
+
+<%=
+if (@vil.state == Vil::State::Progress && File.exists?("skel/skill#{@player.skill.sid}.html"))
+erbres("skel/skill#{@player.skill.sid}.html")
+end
+%>
+
+<% if (@vil.phase == Vil::Phase::PreVote && @vil.voting.first == @player ) %>
+
+<form action="." method="post">
+<select name="pid" id="prevotetarget">
+<option value="object">処刑反対
+<option value="approve">処刑賛成
+</select>
+に
+<input type="hidden" value="prevote" name="cmd" />
+<input value="投票" id="prevotebutton" type="button" onclick="vote(<%= @vil.vid %>, 'prevote'); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
+<span id="postfail" style="display: none"><br />投票に失敗しました</span>
+</form>
+
+<% elsif (@vil.phase == Vil::Phase::Vote || (@vil.phase == Vil::Phase::FinalVote && !@vil.vtargets.index(@player))) && @vil.voting.first == @player %>
+
+<form action="." method="post">
+<select name="pid" id="votetarget">
+<%=
+s = ''
+@vil.vtargets.each {|pl|
+  pid = pl.pid
+  if (@player.vote == pid)
+    s += "<option value=\"#{pid}\" selected>#{pl.name} *"
+  else
+    s += "<option value=\"#{pid}\">#{pl.name}"
+  end
+  s += "\n"
+}
+s %>
+</select>
+に
+<input type="hidden" value="vote" name="cmd" />
+<input value="投票" id="votebutton" type="button" onclick="vote(<%= @vil.vid %>, 'vote'); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
+<span id="postfail" style="display: none"><br />投票に失敗しました</span>
+</form>
+
+<% elsif (@vil.phase == Vil::Phase::Room && @vil.voting.first == @player ) %>
+
+<form action="." method="post">
+<select name="pid" id="roomtarget">
+<%=
+s = ''
+@vil.voting.each {|p|
+  i = p.pid
+  next if (p == @player || @player.yesterday_mate.index(i))
+  s += "<option value=\"#{i}\" selected>#{@vil.players.player(i).name}"
+  s += "\n"
+}
+s %>
+</select>
+を
+<input type="hidden" value="room" name="cmd" />
+<input value="指名" id="roombutton" type="button" onclick="vote(<%= @vil.vid %>, 'room'); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
+<span id="postfail" style="display: none"><br />指名に失敗しました</span>
+</form>
+
+<% end %>
+
+<% if (@vil.date == 0) %>
+<div id="exitform">
+<form action="." method="post"  onSubmit="return confirm('宿から出ますか？')">
+<input type="hidden" name="cmd" value="exit" />
+<input type="hidden" name="vid" value="<%= @vil.vid %>" />
+<input type="hidden" name="pid" value="<%= @player.pid %>" />
+<input type="submit" value="宿から出る" tabindex="-1" />
+</form>
+</div>
+<% end %>
+</div>

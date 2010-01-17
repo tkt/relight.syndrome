@@ -1,0 +1,32 @@
+require 'nkf'
+require 'cgi'
+# require 'erb'
+require 'pstore'
+Store = PStore
+
+require 'erubis'
+
+require 'compat1.9'
+require 'duet'
+require 'lockid'
+
+require 'config'
+require 'version'
+
+require 'ms/ms'
+require 'ms/catalog_system'
+require 'ms/catalog_default'
+require 'ms/login'
+require 'ms/player'
+require 'ms/skill'
+require 'ms/page'
+require 'ms/activepage'
+require 'ms/util'
+require 'ms/errormsg'
+require 'ms/db'
+require 'ms/village'
+require 'ms/village/room'
+require 'ms/village/const'
+require 'ms/village/players'
+require 'ms/village/regulation'
+require 'ms/village/sweep'

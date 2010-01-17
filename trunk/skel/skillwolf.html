@@ -1,0 +1,19 @@
+<% if (@vil.phase == Vil::Phase::Night && !@player.skill.do_action) %>
+<form action="." method="post" id="skillwolf">
+<input type="hidden" name="cmd" value="skill" />
+<select name="pid" id="skilltarget">
+<%
+  @vil.rooms[@vil.date-1][@vil.rooms.number(@vil.date, @player.pid)].each {|pid|
+	  pl = @vil.players.player(pid.to_i)
+	  next if (pl.skill.sid == 'wolf' || @player.pid == pid.to_i || pl.dead? )
+%>
+<option value="<%= pid %>"><%= pl.name %>
+<% } %>
+<% s = (@player.skill.pass) ? '襲撃をパス' : '餓死する' %>
+<option value=""><%= s %>
+</select>
+<input value="襲撃" id="skillbutton" type="button" onclick="skill(<%= @vil.vid %>); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="skillloadicon" style="display: none">
+<span id="skillfail" style="display: none"><br />襲撃に失敗しました</span>
+</form>
+<% end %>

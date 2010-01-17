@@ -1,0 +1,14 @@
+<div id="whisper_box-wrap">
+<%
+if (@player.live? && @player.skill && @player.skill.sid == 'wolf' && \
+	 @vil.state < Vil::State::Party)
+%>
+<div id="whisper_box">
+<form action="." method="post" onsubmit="post(<%= @vil.vid %>, <%= @player.pid %>, 'whisper'); return false;">
+<input type="text" name="message" class="whisper_textarea" id="whisper"><br>
+<input type="hidden" name="cmd" value="post">
+<input value="ささやき" id="whisperbutton" type="submit">
+</form>
+</div>
+<% end %>
+</div>

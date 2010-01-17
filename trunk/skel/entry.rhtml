@@ -1,0 +1,70 @@
+<div class="message">
+<div class="order">
+演じたいキャラクターを選び、発言してください。<br>
+あと <%= @vil.players.max - @vil.players.size %> 人が参加できます。
+</div>
+</div>
+
+<div class="action">
+
+<table border=0 cellpadding=0 cellspacing=0 class="action_box">
+<tr>
+	<td width="100"><img id="charaimg" src="<%= S[:image_dir] %>body00.jpg"></td>
+	<td width="16"><img src="<%= S[:image_dir] %>say00b.jpg"></td>
+	<td>
+		
+		<table border=0 cellpadding=0 cellspacing=0
+			class="action_balloon">
+		<tr>
+			<td width="8"><img src="<%= S[:image_dir] %>say01.jpg"></td>
+			<td></td>
+			<td width="8"><img src="<%= S[:image_dir] %>say02.jpg"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="action_body">
+<% unless @lockid.has_key?(@login.userid) %>
+望む配役と登場時のセリフを入力して下さい。<br>
+<strong>プレイヤーIDが推測できる発言はご遠慮下さい。</strong><br>
+<form action="." method="post" name="entryForm" onclick="imgChange();">
+<input type="hidden" name="vid" value="<%= @vil.vid %>" />
+<input type="hidden" name="cmd" value="entry" />
+	希望する配役：
+	<select name="pid">
+<%=
+s = ""
+@vil.players.notentries().each do |i|
+  s += "<option value=\"#{i}\">#{Player.name(i)}\n"
+end
+s
+%>
+</select>
+
+<textarea name="message" rows="3" class="action_textarea"></textarea><br>
+<% entryvalue = 'エントリー' %>
+<% if Time.coretime? && DB::Users.continual?(@vil.vid, @login.userid) %>
+<% entryvalue = '上記を了承してエントリー' %>
+<strong>あなたは前村にも参加していました。賑わっている時の連戦はなるべく控えて下さい。<br>
+参加する場合は、自分が連戦であることは表明せずに参加して、
+抜けるか否かの判断も自分で行って下さい。</strong><br>
+<% end %>
+<input type="submit" value="<%= entryvalue %>" />
+</form>
+<% else %>
+<%= c(ID_LOCKED, @login.userid, @lockid[@login.userid]) %>
+<% end %>
+                        </td>
+                        <td></td>
+                </tr>
+                <tr>
+                        <td><img src="<%= S[:image_dir] %>say03.jpg"></td>
+                        <td></td>
+                        <td><img src="<%= S[:image_dir] %>say04.jpg"></td>
+                </tr>
+                </table>
+
+        </td>
+</tr>
+</table>
+
+</div>

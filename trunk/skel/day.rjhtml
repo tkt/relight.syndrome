@@ -1,0 +1,14 @@
+<% discuss = @vil.discussions(@vil.date, @player, true) %>
+<td align="left" valign="top">
+<p id="dis_size" style="display: none;"><%= discuss.size %></p>
+<%= HEAD3.gsub(/<a name[^>]*>(.*?)<\/a>/, '\1') %>
+
+<div id="discuss"><%= discuss.join.chomp %></div>
+
+</td></tr></table>
+</div>
+<% c = $DEBUG ? '' : 'display: none; ' %>
+<div id="debug" style="<%= c %>position: absolute; top: 20px; left: 80%; -moz-opacity: 0.5; background-color: lightgreen; color: black">
+</div>
+</body>
+</html>

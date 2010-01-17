@@ -1,0 +1,25 @@
+<div id="player_wrap">
+<div id="player">
+
+<table class="action_box" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td id="face"><img src="<%= S[:image_dir] %>body<%= @player.color %>.jpg"></td>
+	<td id="descript">
+		<p><%= @player.name %> （<%= @player.userid %>）</p>
+		<p>
+あなたは <strong>死亡しました</strong>。
+		</p>
+	</td>
+</tr></tbody>
+</table>
+<p id="actstate" style="display: none;"><%= @state %></p>
+<p id="livestate" style="display: none;">dead</p>
+
+<form action="." method="post">
+<textarea name="message" rows="3" class="groan_textarea" id="action"></textarea><br>
+<input type="hidden" name="cmd" value="post" />
+<input value="うめき" id="stdsaybutton" type="button" onclick="post(<%= @vil.vid %>, <%= @player.pid %>, 'action'); return false;" />
+<img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
+<span id="postfail" style="display: none">投稿に失敗しました</span>
+</form>
+</div>

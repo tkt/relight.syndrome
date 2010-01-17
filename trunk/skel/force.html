@@ -1,0 +1,18 @@
+<br>
+
+<% caution = ''
+   if (@vil.state <= 1)
+    up = '開始'
+    caution = if (@vil.max_players != @vil.players.size) then "&& confirm('まだ設定した人数がそろっていませんが、本当に始めますか？')" end
+   elsif (@vil.state == 3)
+    up = '終了'
+   else
+    up = '更新'
+   end
+%>
+
+<form class="force_form" action="." method="post" onSubmit="return confirm('村を<%= up %>しますか？') <%= caution %>">
+<input type="hidden" name="cmd" value="update">
+<input type="hidden" name="vid" value="<%= @vil.vid %>">
+<input type="submit" value="村を<%= up %>する">
+</form>

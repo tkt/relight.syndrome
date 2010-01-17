@@ -1,0 +1,9 @@
+class LockID < Hash
+	def initialize
+		super()
+
+		self.update({
+			# 'master' => 'このIDは管理専用です',
+		})
+	end
+end

@@ -1,0 +1,362 @@
+/* Basic Elements */
+
+* {
+  line-height: 130%;
+  font-size: 100%;
+}
+
+body {
+ margin: 0;
+ padding: 0;
+ color: #eee;
+ background-color: dimgray;
+ font-family: sans-serif;
+}
+
+/* Thank you for http://lab.rails2u.com/bgmaker/ */
+body.phase0 { background-image: url("http://wtl.rdy.jp/share/phase_sun.png"); }
+body.phase1 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase2 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase3 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase4 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase5 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase6 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
+body.phase7 { background-image: url("http://wtl.rdy.jp/share/phase_night.png"); }
+body.phase8 { background-image: url("http://wtl.rdy.jp/share/phase_sun.png"); }
+
+a { padding: 1px; }
+a:link { color: #faa; }
+a:visited { color: #faa; }
+a:hover {
+ color: white;
+ background-color: #400;
+ padding: 0px;
+ border: 1px solid #f44;
+}
+
+h2 {
+ background: #000 url(http://wtl.rdy.jp/share/headbar.jpg) no-repeat left bottom;
+ font-size: 100%;
+ font-weight: normal;
+ padding: 8px 8px 2px 0;
+}
+
+h3 {
+ padding-left: 1em;
+}
+
+ul {
+ margin: 0;
+ padding: 0 0 0 20px;
+}
+
+li {
+ margin: 0 0 0 20px;
+}
+
+img {
+ border: 0;
+}
+
+p {
+ text-indent: 1em;
+ margin: 12px 0 16px 0;
+}
+
+strong {
+ font-weight: normal;
+ color: #f44;
+}
+
+form {
+ margin: 4px 0 4px 0;
+}
+
+dd {
+ border: 1px solid #f44;
+ padding: 4px 8px 4px 8px;
+ margin: 10px 32px 20px 32px;
+ /* color: #d44; */
+}
+
+pre {
+ padding: 1em;
+ overflow: auto;
+ _overflow-x: scroll;
+ line-height: 1.2em;
+ color: lightgreen;
+ font-size: 80%;
+ width: 450px;
+ border: 1px solid gray;
+}
+
+/* for (utf-8 and ie) */
+input, select {
+ _font-size: 85%;
+}
+
+/* Special Elements */
+
+table.main {
+ margin: 0;
+ background-color: #000;
+ border: 1px solid #223;
+ width: 508;
+}
+
+div.footer, div.return {
+ margin: 8px 16px 8px 16px;
+ text-align: right;
+ font-size: smaller;
+ color: gray;
+}
+
+div.footer p {
+ margin: 3em 0 5px 0;
+ padding: 0;
+}
+
+div.footer {
+ font-family: Arial, sans-serif;
+ text-align: center;
+}
+
+
+div.footer a { text-decoration: none; }
+div.footer a:link { color: #805555; }
+div.footer a:visited { color: #805555; }
+div.footer a:hover {
+ color: #fff;
+ background-color: #400;
+}
+
+form.force_form {
+  text-align: right;
+}
+
+form.login_form {
+  text-align: right;
+}
+
+table.list {
+  margin: 16px;
+  border-collapse: collapse;
+  width: 420;
+}
+table.list td {
+  padding: 3px 6px 3px 6px;
+  border: 1px solid #223;
+}
+
+table.list td.title {
+  background-color: #001;
+}
+table.list td.desc {
+  font-size: 90%;
+}
+
+table.list th {
+  padding: 3px 6px 3px 6px;
+}
+
+
+/* Class Elements */
+
+.mes_say_body0,
+.mes_whisper_body0,
+.mes_god_body0,
+.mes_groan_body0,
+.mes_think_body0,
+.mes_night_body0 {
+  padding: 8px 0 0 0;
+}
+.mes_say_body1,
+.mes_whisper_body1,
+.mes_god_body1,
+.mes_groan_body1,
+.mes_think_body1,
+.mes_night_body1 {
+ padding: 0 8px 8px 12px;
+ color: #000;
+ overflow: auto;
+ _width: 412px;
+}
+.mes_say_body0     { background: #000 url(http://wtl.rdy.jp/share/say05.jpg) no-repeat top; }
+.mes_whisper_body0 { background: #000 url(http://wtl.rdy.jp/share/whisper05.jpg) no-repeat top; }
+.mes_god_body0     { background: #000 url(http://wtl.rdy.jp/share/god05.jpg) no-repeat top; }
+.mes_groan_body0   { background: #000 url(http://wtl.rdy.jp/share/groan05.jpg) no-repeat top; }
+.mes_night_body0   { background: #000 url(http://wtl.rdy.jp/share/night05.jpg) no-repeat top; }
+.mes_say_body1     { background: #fff url(http://wtl.rdy.jp/share/say06.jpg) no-repeat bottom; }
+.mes_whisper_body1 { background: #ff7777 url(http://wtl.rdy.jp/share/whisper06.jpg) no-repeat bottom; }
+.mes_god_body1     { background: #77ff77 url(http://wtl.rdy.jp/share/god06.jpg) no-repeat bottom; }
+.mes_groan_body1   { background: #9fb7cf url(http://wtl.rdy.jp/share/groan06.jpg) no-repeat bottom; }
+.mes_night_body1   { background: #88f url(http://wtl.rdy.jp/share/night06.jpg) no-repeat bottom; }
+
+.action_ballon,
+.action_textarea,
+.whisper_textarea,
+.groan_textarea,
+.night_textarea {
+ width: 100%;
+}
+
+.action_balloon   { background-color: #fff; }
+.action_textarea  { background-color: #fff; }
+.whisper_textarea { background-color: #fcc; }
+.groan_textarea   { background-color: #ccc; }
+.night_textarea   { background-color: #ccf; }
+
+.inline_form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.inline_submit {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #f80;
+  line-height: 100%;
+  font-size: 100%;
+}
+
+.message {
+  margin: 6px 0 16px 0;
+}
+.message_box {
+  margin: 4px 0 0 0;
+  width: 475px;
+}
+#discuss table.message_box {
+ border-collapse: collapse;
+}
+#discuss table.message_box td {
+ padding: 0;
+}
+
+
+.action_box {
+ margin: 4px 0 4px 0;
+ width: 100%;
+}
+.action_body {
+  color: #000;
+}
+
+.skill {
+  margin: 16px 0 0 0;
+  width: 100%;
+}
+.skill_body {
+  padding: 0 8px 0 16px;
+  color: #000;
+}
+.skill_body p {
+  text-indent: 0;
+  margin: 0 0 8px 0;
+}
+
+.announce, .order, .extra, .nextra {
+  padding: 8px;
+}
+.system, .vote, .vote_res, .room, .room_res, .room_res2, .apology {
+ font-size: smaller;
+ padding: 4px 8px;
+ margin: 0;
+}
+.announce {
+  border: 1px solid #aaa;
+}
+.order {
+ margin-top: 15px;
+ border: 1px solid #d44;
+ color: #f44;
+}
+.extra {
+  border: 1px solid #555;
+  color: #888;
+}
+.nextra {
+  border: 1px solid #c59;
+  color: #f8a;
+}
+.system { color: #ccc; border: 1px solid #666; }
+.room, .vote { color: #aaa; border: 1px solid #333; }
+.room_res { color: #aaf; border: 1px solid #55c; }
+.room_res2 { color: #cfc; border: 1px solid #5f5; }
+.vote_res { color: #faa; border: 1px solid #c55; }
+.apology { color: #afa; border: 1px solid #5c5; }
+
+.content{
+  width:100%;
+  height:100%;
+  left:0px;
+  top:0px;
+}
+
+.main {
+ margin: 8px 16px 8px 16px;
+}
+
+/* Id Elements */
+
+#vilheader {
+ width: 250;
+ text-align: left;
+ margin-top: 10px;
+ padding: 0 10px;
+ border: 1px solid #000;
+ background-color: black;
+}
+
+#vilheader p {
+ text-indent: 0;
+ font-size: smaller;
+}
+
+#vilheader p#vilname {
+ border-bottom: 1px solid #f00;
+ margin: 0;
+ padding: 5px 0;
+}
+
+#player_wrap, #whisper_box {
+ margin: 10px;
+ padding: 10px;
+ border: 1px solid #000;
+ width: 250;
+ text-align: left;
+ background-color: black;
+}
+
+#whisper_box {
+ background-image: url("http://wtl.rdy.jp/share/skillwolf.jpg");
+ background-position: bottom right;
+ background-repeat: no-repeat;
+}
+
+#player table.action_box {
+}
+
+#player td#face {
+ width: 74px;
+}
+
+#player td#descript {
+ background-color: #000;
+ text-align: center;
+ background-repeat: no-repeat;
+ background-position: bottom right;
+}
+
+#player td#descript p {
+ text-indent: 0;
+ padding: 5px;
+ margin: 0;
+ font-size: smaller;
+}
+
+#player #exitform {
+ text-align: right;
+}

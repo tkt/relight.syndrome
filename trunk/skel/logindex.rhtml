@@ -1,0 +1,18 @@
+<h2>終了した村の記録</h2>
+
+<table width="100%" style="padding-left: 2em;">
+<tr style="text-align: left"><th>村名</th><th>人数</th><th>1日目開始 ～ エピローグ終了</td>
+<% @villages.reverse_each {|vil| %>
+<tr><td>
+<a href="./?vid=<%= vil['vid'].to_s %>"><%= vil['vid'].to_s %> <%= vil['name'] %></a>
+</td>
+<td>
+<%= vil['players'] %>人村
+</td>
+<td>
+<%= vil['start'].strftime("%m/%d %H:%M") %> ～
+<%= vil['end'].strftime("%H:%M") %>
+</td>
+</tr>
+<% } %>
+</table>

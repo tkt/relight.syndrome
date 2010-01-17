@@ -1,0 +1,6 @@
+<form class="force_form" action="." method="post" onSubmit="return confirm('村を廃村しますか？');">
+<input type="hidden" name="cmd" value="update">
+<input type="hidden" name="vid" value="<%= @vil.vid %>">
+<input type="hidden" name="nocnt" value="1">
+<input type="submit" value="村を廃村する">
+</form>

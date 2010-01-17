@@ -1,0 +1,7 @@
+<h2>キャラクター一覧</h2>
+<% @chars.each_with_index {|char, i| %>
+<% if i != 0 %>
+<div class="message"><div class="announce"><%= char %></div></div>
+<img src="<%= S[:image_dir] %>body<%= two(i) %>.jpg" alt="<%= char %>">
+<% end %>
+<% } %>

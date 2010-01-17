@@ -1,0 +1,54 @@
+GAME_TITLE = '人狼達の黄昏::夜明し'
+
+# 置いてあるサーバとパス(URI)
+SET_SERV = 'example.jp'
+SET_PATH = '/m/'
+
+MASTER = 'master'
+ADMINS = [MASTER, 'twilight']
+
+# お知らせ
+INFO = [
+    ['200X-10-20',
+     '開国しました。',
+    ],
+]
+
+# to Admins,
+# please change image_dir, css_dir, and script_dir.
+# Also change image's urls in script and stylesheets, please.
+
+S = {\
+	:vildb_path => 'db/vil/',
+	:vilsdb_path => 'db/vil.db',
+	:vilnames_path => 'res/vilnames.dat',
+	:ajaxdb_path => 'db/access.db',
+	:fatallog_path => 'db/fatal.log',
+	:log_dir => 'log/',
+	:log_parent => '../../',
+	:src_parent => '../../',
+	:cache_dir => 'cache/',
+	:reg_file => 'lib/ms/village/sitereg.rb',
+	:image_dir => 'img/',
+	:css_dir => 'res/',
+	:script_dir => 'res/',
+	# :src_parent => '',
+	# :image_dir => 'http://wtlc.rdy.jp/share/',
+	# :css_dir => 'http://wtlc.rdy.jp/share/ms/',
+	# :script_dir => 'http://wtlc.rdy.jp/share/ms/',
+	:log_max => 300,
+	:std_period => 5,  # minute
+	:vote_period => 0.5,  # minute
+	:epilogue_period => 30,  # minute
+	:min_entries => 8,
+	:max_entries => 13,
+	:restart_minute => 30,
+	:apply_advance_num => 11,
+	:highperformance => false, 
+	:syncsleeptime => 0.5,
+	:reconnect_sec => 120,
+	:processlimit => 18,
+	:autobuildvillage => true,
+	:autobuildlimit => 2,
+	:index_info => 3,
+}

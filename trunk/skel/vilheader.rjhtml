@@ -1,0 +1,19 @@
+<div id="vilheader">
+<p id="vilname">
+<%= @vil.vid %> <%= @vil.name %>
+ <img src="<%= S[:image_dir] %>load.ok.gif" id="loadstatus">
+ <br>
+ <a href="./">トップへ戻る</a>
+ <input type="checkbox" id="chatmode" value=""><label for="chatmode">50発言限定モード</label>
+</p>
+<p id="timeline">
+<% timeline = @vil.timeline; timeline.each_with_index {|d, index| %>
+<% if index == @vil.date %>
+<span class="time"><%= d %></span> 
+<% else %>
+<a href="./?vid=<%= @vil.vid %>;date=<%= index.to_s %>"><%= d %></a> 
+<% end %>
+<% } %>
+</p>
+</div>
+
