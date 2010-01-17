@@ -1,7 +1,7 @@
 GAME_TITLE = '人狼達の黄昏::夜明し'
 
 # 置いてあるサーバとパス(URI)
-SET_SERV = 'example.jp'
+SET_SERV = ENV['SERVER_NAME'] || 'example.jp'
 SET_PATH = '/m/'
 
 MASTER = 'master'

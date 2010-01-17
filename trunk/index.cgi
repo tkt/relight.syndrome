@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/ruby -Ku
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 # You can redistribute it and/or modify it under GPL2.
