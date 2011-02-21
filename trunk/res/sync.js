@@ -34,6 +34,7 @@ function post(vid, pid, atype) {
 		$('stdsaybutton').disabled = true;
 	}
 	var ajax = new Ajax.Request(url, params);
+	ajax = null;//2009/06/14 add initialize
 }
 
 function success(res, json) {
@@ -96,6 +97,7 @@ function vote(vid, atype) {
 	Element.show('loadicon');
 	$(atype + 'button').disabled = true;
 	var ajax = new Ajax.Request(url, params);
+	ajax = null;//2009/06/14 initialize
 }
 
 function vote_success(res, json) {
@@ -144,6 +146,7 @@ function skill(vid) {
 	Element.show('skillloadicon');
 	$('skillbutton').disabled = true;
 	var ajax = new Ajax.Request(url, params);
+	ajax = null;//2009/06/14 initialize
 }
 
 function skill_success(res, json) {
@@ -154,6 +157,7 @@ function skill_success(res, json) {
 }
 
 function skill_failure(res, json) {
+	Util.debug('Skill failure, target is not avairable.'); //2008/10/16 tkt
 	Element.hide('skillloadicon');
 	if ($('skillfail')) { Element.show('skillfail'); }
 	$('skillbutton').disabled = false;
@@ -179,28 +183,40 @@ function load(village_id) {
 	};
 	var ajax = new Ajax.Request(url, params);
 	loadstate('now');
+	ajax = null;//2009/06/14 initialize
 }
 
 function rcv_display(res, json) {
 	try{
 		eval("var ret="+res.responseText);
-		Util.debug('response eval OK.')
+		Util.debug('response eval OK.');
 	} catch(e) {
-		Util.debug('response eval Failed.')
+		Util.debug('response eval Failed.' + e);
 		alert("Error, missing response. Please, reload.");
 	}
 	if (ret[1] && ret[1] != '' ) {
 		if ($('livestate').innerHTML == 'live') {
-			pattern = /name="?cmd"?/i
+			pattern = /name="?cmd"?/i;
 
 			Util.debug($('player').innerHTML.match(pattern));
 			Util.debug(ret[1].match(pattern));
 
 			if ($('player').innerHTML.match(pattern) != ret[1].match(pattern)) {
 				Util.debug('search pattern matched');
+				act = $('actstate').innerHTML;
+				
+				//add 2008/10/26 tkt mod 2008/12/24
+				if ($(act)) { var message = $F(act); }
+				
 				if ($('whisper')) { var content = $F('whisper'); }
 				$('player').innerHTML = ret[1];
 				if (content) { $('whisper').value = content; }
+
+				//add 2008/10/26 tkt mod 2008/12/24
+				if(act == 'night' && $('player').innerHTML.length != ret[1].length && message)
+				{
+					if ($(act)) { $(act).value = message; }
+				}
 			}
 		}
 		if (ret[5] && ret[5] != '') {
@@ -290,7 +306,7 @@ function showUpdateTimer() {
   }
   var min = parseInt(RegExp.$1);
   var sec = parseInt(RegExp.$2);
-  if (min > 59) {
+  if (min >= 59) { //2008/10/17 tkt@mod
     location.reload(true);
     return;
   }
@@ -317,7 +333,7 @@ function showUpdateTimer() {
 
 function loadstate(image) {
 	if ($('loadstatus')) {
-		$('loadstatus').src = 'http://wtl.rdy.jp/share/load.' + image + '.gif';
+		$('loadstatus').src = '/w/img/load.' + image + '.gif';
 	}
 }
 
@@ -342,7 +358,7 @@ Util.debug = function(string) {
 		var d = new Date();
 		var current = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 
-		var s = current + ' ' + string + "<br>" + $('debug').innerHTML;
-		$('debug').innerHTML = s;
+		var s = current + ' ' + string + "<br />" + $('debug').innerHTML;
+		//$('debug').innerHTML = s; 2009/06/14 DEL debugログを出力しない
 	}
 }
