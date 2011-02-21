@@ -65,7 +65,13 @@ class Vil
 		end
 
 		def self.guard(player_num, wolves_num)
-			((player_num - 2) / 2) + 2 + rand(2)
+			#((player_num - 2) / 2) + 2 + rand(2) mod 2008/11/07 tkt for guard fixed
+			if player_num <= S[:guard_fixed_num]
+				S[:guard_fixed_day]
+			else
+				#((player_num - 2) / 2) + 2 + rand(2)  mod 2008/11/08 tkt : for guard day change
+				((player_num - wolves_num) / 2) + 2 + rand(2)
+			end
 		end
 
 		def self.rule(player_num)

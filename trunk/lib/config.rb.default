@@ -51,4 +51,6 @@ S = {\
 	:autobuildvillage => true,
 	:autobuildlimit => 2,
 	:index_info => 3,
+	:guard_fixed_num => 8,#add 2008/11/07 tkt:guard is fixed for under this number
+	:guard_fixed_day => 5,#add 2008/11/07 tkt:this day is guard fixed
 }
