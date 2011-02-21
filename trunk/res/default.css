@@ -14,15 +14,15 @@ body {
 }
 
 /* Thank you for http://lab.rails2u.com/bgmaker/ */
-body.phase0 { background-image: url("http://wtl.rdy.jp/share/phase_sun.png"); }
-body.phase1 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase2 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase3 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase4 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase5 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase6 { background-image: url("http://wtl.rdy.jp/share/phase_prenight.png"); }
-body.phase7 { background-image: url("http://wtl.rdy.jp/share/phase_night.png"); }
-body.phase8 { background-image: url("http://wtl.rdy.jp/share/phase_sun.png"); }
+body.phase0 { background-image: url("/w/img/phase_sun.png"); }
+body.phase1 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase2 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase3 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase4 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase5 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase6 { background-image: url("/w/img/phase_prenight.png"); }
+body.phase7 { background-image: url("/w/img/phase_night.png"); }
+body.phase8 { background-image: url("/w/img/phase_sun.png"); }
 
 a { padding: 1px; }
 a:link { color: #faa; }
@@ -35,7 +35,7 @@ a:hover {
 }
 
 h2 {
- background: #000 url(http://wtl.rdy.jp/share/headbar.jpg) no-repeat left bottom;
+ background: #000 url("/w/img/headbar.jpg") no-repeat left bottom;
  font-size: 100%;
  font-weight: normal;
  padding: 8px 8px 2px 0;
@@ -181,16 +181,16 @@ table.list th {
  overflow: auto;
  _width: 412px;
 }
-.mes_say_body0     { background: #000 url(http://wtl.rdy.jp/share/say05.jpg) no-repeat top; }
-.mes_whisper_body0 { background: #000 url(http://wtl.rdy.jp/share/whisper05.jpg) no-repeat top; }
-.mes_god_body0     { background: #000 url(http://wtl.rdy.jp/share/god05.jpg) no-repeat top; }
-.mes_groan_body0   { background: #000 url(http://wtl.rdy.jp/share/groan05.jpg) no-repeat top; }
-.mes_night_body0   { background: #000 url(http://wtl.rdy.jp/share/night05.jpg) no-repeat top; }
-.mes_say_body1     { background: #fff url(http://wtl.rdy.jp/share/say06.jpg) no-repeat bottom; }
-.mes_whisper_body1 { background: #ff7777 url(http://wtl.rdy.jp/share/whisper06.jpg) no-repeat bottom; }
-.mes_god_body1     { background: #77ff77 url(http://wtl.rdy.jp/share/god06.jpg) no-repeat bottom; }
-.mes_groan_body1   { background: #9fb7cf url(http://wtl.rdy.jp/share/groan06.jpg) no-repeat bottom; }
-.mes_night_body1   { background: #88f url(http://wtl.rdy.jp/share/night06.jpg) no-repeat bottom; }
+.mes_say_body0     { background: #000 url(/w/img/say05.jpg) no-repeat top; }
+.mes_whisper_body0 { background: #000 url(/w/img/whisper05.jpg) no-repeat top; }
+.mes_god_body0     { background: #000 url(/w/img/god05.jpg) no-repeat top; }
+.mes_groan_body0   { background: #000 url(/w/img/groan05.jpg) no-repeat top; }
+.mes_night_body0   { background: #000 url(/w/img/night05.jpg) no-repeat top; }
+.mes_say_body1     { background: #fff url(/w/img/say06.jpg) no-repeat bottom; }
+.mes_whisper_body1 { background: #ff7777 url(/w/img/whisper06.jpg) no-repeat bottom; }
+.mes_god_body1     { background: #77ff77 url(/w/img/god06.jpg) no-repeat bottom; }
+.mes_groan_body1   { background: #9fb7cf url(/w/img/groan06.jpg) no-repeat bottom; }
+.mes_night_body1   { background: #88f url(/w/img/night06.jpg) no-repeat bottom; }
 
 .action_ballon,
 .action_textarea,
@@ -297,7 +297,7 @@ table.list th {
 
 .main {
  margin: 8px 16px 8px 16px;
-}
+ }
 
 /* Id Elements */
 
@@ -309,7 +309,11 @@ table.list th {
  border: 1px solid #000;
  background-color: black;
 }
-
+/** add@tkt 2008/10/11**/
+html>/**/body #vilheader{
+	margin-right: 20px;
+}
+/** add@tkt 2008/10/11**/
 #vilheader p {
  text-indent: 0;
  font-size: smaller;
@@ -321,6 +325,8 @@ table.list th {
  padding: 5px 0;
 }
 
+
+
 #player_wrap, #whisper_box {
  margin: 10px;
  padding: 10px;
@@ -331,7 +337,7 @@ table.list th {
 }
 
 #whisper_box {
- background-image: url("http://wtl.rdy.jp/share/skillwolf.jpg");
+ background-image: url("/w/img/skillwolf.jpg");
  background-position: bottom right;
  background-repeat: no-repeat;
 }
