@@ -434,7 +434,23 @@ class Vil
 	#######################################################
 
 	def start_sun
-		period = (@state == State::Party) ? S[:epilogue_period] : @period
+		#mod 2008/11/08 tkt : for epilogue time change, yes, i know this code is not good...
+		#to-do attached plyaers.size and period time
+		#period = (@state == State::Party) ? S[:epilogue_period] : @period
+		period = @period
+		if @state == State::Party
+			period = 1 * @players.size * (@date - 1)
+			$logger.debug('epilogue_period#{period}  plaersize#{@players.size} date#{(@date - 1)}')
+			if period < S[:epilogue_period_min]
+				period = S[:epilogue_period_min]
+			elsif (@players.size >= 8 || (period > S[:epilogue_period]))
+				period = S[:epilogue_period]
+			end
+			#period = (@state == State::Party) ? period_epi : @period		
+		end
+		
+		#mod 2008/11/08 end
+		
 		up_uptime(period)
 		# up_uptime(@period)
 		@phase = Phase::Sun
@@ -589,7 +605,8 @@ class Vil
 		addlog(room_res(c(ROOM_VOTING, pl.name, mate.name)))
 
 		@voting.delete(mate)
-		if (@rule == Rule::Standard || @date != 1)
+		#if (@rule == Rule::Standard || @date != 1) mod 2008/11/08 tkt:change rule for 3 members room
+		if (@date != 1 || (@rule == Rule::Standard && (@players.size % 2 == 0)))
 			@players.room_map([pl, mate])
 		else # Advance
 			last_room = @players.mates.last
