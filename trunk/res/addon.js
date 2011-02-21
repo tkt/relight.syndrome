@@ -5,5 +5,5 @@ function imgChange() {
   if (s.length == 1) {
 	s = "0"+s;
   }
-  $('charaimg').src = "http://wtl.rdy.jp/share/body"+s+".jpg";
+  $('charaimg').src = "/w/imgc/body"+s+".jpg";
 }
