@@ -3,7 +3,7 @@
 
 <table class="action_box" border="0" cellpadding="0" cellspacing="0">
 <tbody><tr>
-	<td id="face"><img src="<%= S[:image_dir] %>body<%= @player.color %>.jpg"></td>
+	<td id="face"><img src="<%= S[:char_image_dir] %>body<%= @player.color %>.jpg"></td>
 	<td id="descript">
 		<p><%= @player.name %> （<%= @player.userid %>）</p>
 		<p>

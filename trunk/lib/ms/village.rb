@@ -160,7 +160,7 @@ class Vil
 		%Q(<div class="#{typec}">) + \
 		%Q(<div class="#{type}">#{player.name}) + \
 		%Q(<table class="message_box"><tr>) + \
-		%Q(<td width="40"><img src="#{S[:image_dir]}#{face}.jpg"></td>) + \
+		%Q(<td width="40"><img src="#{S[:char_image_dir]}#{face}.jpg"></td>) + \
 		%Q(<td width="16"><img src="#{S[:image_dir]}#{type}00.jpg"></td>) + \
 		%Q(<td><div class="mes_#{type}_body0">) + \
 		%Q(<div class="mes_#{type}_body1">#{msg}</div>) + \

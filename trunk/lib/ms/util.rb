@@ -100,5 +100,5 @@ def logize(str)
 end
 
 def wrap_message(pid, msg)
-	message(%Q!<a name="none">#{NAMES[pid]}</a><table border=0 cellpadding=0 cellspacing=0 class="message_box"><tr><td width="40"><img src="#{S[:image_dir]}face#{two(pid)}.jpg"></td><td width="16"><img src="#{S[:image_dir]}say00.jpg"></td><td> <div class="mes_say_body0"> <div class="mes_say_body1">#{msg}</div> </div> </td></tr></table>!)
+	message(%Q!<a name="none">#{NAMES[pid]}</a><table border=0 cellpadding=0 cellspacing=0 class="message_box"><tr><td width="40"><img src="#{S[:char_image_dir]}face#{two(pid)}.jpg"></td><td width="16"><img src="#{S[:image_dir]}say00.jpg"></td><td> <div class="mes_say_body0"> <div class="mes_say_body1">#{msg}</div> </div> </td></tr></table>!)
 end
