@@ -30,6 +30,7 @@ S = {\
 	:cache_dir => 'cache/',
 	:reg_file => 'lib/ms/village/sitereg.rb',
 	:image_dir => 'img/',
+	:char_image_dir => 'imgc/', #add 2008/12/27 tkt:move character image's dir.
 	:css_dir => 'res/',
 	:script_dir => 'res/',
 	# :src_parent => '',

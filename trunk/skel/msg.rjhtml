@@ -3,7 +3,7 @@
 <% bg = @vil.state == 2 ? %Q( style="background-image: url(#{S[:image_dir]}skill#{@player.skill.sid}.jpg)") : '' %>
 <table class="action_box" border="0" cellpadding="0" cellspacing="0">
 <tbody><tr>
-	<td id="face"><img src="<%= S[:image_dir] %>body<%= @player.color %>.jpg"></td>
+	<td id="face"><img src="<%= S[:char_image_dir] %>body<%= @player.color %>.jpg"></td>
 	<td id="descript"<%= bg %>>
 		<p><%= @player.name %> （<%= @player.userid %>）</p>
 		<p>
