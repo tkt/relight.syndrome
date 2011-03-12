@@ -9,7 +9,7 @@
 		<p>
 <% if (@vil.state == 2) %>
 あなたは <strong><%= @player.skill.name %></strong> です。
-<% if @player.skill.respond_to?('pass') %><br><%= @player.skill.pass_s %><% end %>
+<% if @player.skill.respond_to?('pass') %><br /><%= @player.skill.pass_s %><% end %>
 <% end %>
 		</p>
 	</td>
@@ -21,7 +21,7 @@
 <% if (@vil.phase == Vil::Phase::Sun || @vil.phase == Vil::Phase::Night || (@vil.phase == Vil::Phase::Apology && @vil.vtargets.index(@player) && @vil.voting.first == @player)) %>
 <% act_class = (@vil.phase == Vil::Phase::Night) ? 'night' : 'action' %>
 <form action="." method="post">
-<textarea name="message" rows="3" class="<%= act_class %>_textarea" id="<%= act_class %>"></textarea><br>
+<textarea name="message" rows="3" class="<%= act_class %>_textarea" id="<%= act_class %>"></textarea><br />
 <input type="hidden" name="cmd" value="post" />
 <input value="発言" id="stdsaybutton" type="button" onclick="post(<%= @vil.vid %>, <%= @player.pid %>, '<%= act_class %>'); return false;" />
 <img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">
