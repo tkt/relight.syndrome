@@ -1,7 +1,7 @@
 <div class="message">
 <div class="order">
-演じたいキャラクターを選び、発言してください。<br>
-あと <%= @vil.players.max - @vil.players.size %> 人が参加できます。
+演じたいキャラクターを選び、発言してください。<br />
+<%= @vil.players.size %>人が参加しています。あと <%= @vil.players.max - @vil.players.size %> 人が参加できます。
 </div>
 </div>
 
@@ -40,7 +40,7 @@ s
 %>
 </select>
 
-<textarea name="message" rows="3" class="action_textarea"></textarea><br>
+<textarea name="message" rows="3" class="action_textarea"></textarea><br />
 <% entryvalue = 'エントリー' %>
 <% if Time.coretime? && DB::Users.continual?(@vil.vid, @login.userid) %>
 <% entryvalue = '上記を了承してエントリー' %>
