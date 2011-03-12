@@ -1,3 +1,4 @@
+</td>
 <% discuss = @vil.discussions(@vil.date, @player, true) %>
 <td align="left" valign="top">
 <p id="dis_size" style="display: none;"><%= discuss.size %></p>

@@ -147,7 +147,8 @@ module ActivePage
 
 		def result?(state)
 			s = _state()
-			(%w(prevote vote room apology finalvote).index(s) || s != state)
+			#(%w(prevote vote room apology finalvote).index(s) || s != state) mod 2008/10/16 tkt
+			(%w(prevote vote room apology finalvote night).index(s) || s != state)
 		end
 
 		def sync_result

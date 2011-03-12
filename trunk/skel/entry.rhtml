@@ -24,8 +24,8 @@
 			<td></td>
 			<td class="action_body">
 <% unless @lockid.has_key?(@login.userid) %>
-望む配役と登場時のセリフを入力して下さい。<br>
-<strong>プレイヤーIDが推測できる発言はご遠慮下さい。</strong><br>
+望む配役と登場時のセリフを入力して下さい。<br />
+<strong>プレイヤーIDが推測できる発言はご遠慮下さい。</strong><br />
 <form action="." method="post" name="entryForm" onclick="imgChange();">
 <input type="hidden" name="vid" value="<%= @vil.vid %>" />
 <input type="hidden" name="cmd" value="entry" />

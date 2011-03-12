@@ -16,7 +16,7 @@
 <p id="livestate" style="display: none;">dead</p>
 
 <form action="." method="post">
-<textarea name="message" rows="3" class="groan_textarea" id="action"></textarea><br>
+<textarea name="message" rows="3" class="groan_textarea" id="action"></textarea><br />
 <input type="hidden" name="cmd" value="post" />
 <input value="うめき" id="stdsaybutton" type="button" onclick="post(<%= @vil.vid %>, <%= @player.pid %>, 'action'); return false;" />
 <img src="<%= S[:image_dir] %>load.gif" id="loadicon" style="display: none">

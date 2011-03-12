@@ -2,7 +2,7 @@
 <p id="vilname">
 <%= @vil.vid %> <%= @vil.name %>
  <img src="<%= S[:image_dir] %>load.ok.gif" id="loadstatus">
- <br>
+ <br />
  <a href="./">トップへ戻る</a>
  <input type="checkbox" id="chatmode" value=""><label for="chatmode">50発言限定モード</label>
 </p>
