@@ -193,7 +193,8 @@ module ActivePage
 
 			case vil.state 
 			when Vil::State::Welcome
-				min_entries = (@vil.first_restart) ? S[:min_entries] : S[:apply_advance_num]
+				#2009/01/25 mod tkt for min_entries by coretime|| min_entries = (@vil.first_restart) ? S[:min_entries] : S[:apply_advance_num]
+				min_entries = (@vil.first_restart) ? min_entries_num(@up, true) : S[:apply_advance_num]
 				@orders << c(SHOW_UPDATE_PR, @vil.players.size, min_entries)
 				size = @vil.discussion_size(0)
 				if size > S[:log_max] - 50

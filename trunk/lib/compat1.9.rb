@@ -21,4 +21,11 @@ class Time
 		hour = Time.now.hour
 		(20 < hour && hour < 24)
 	end
+	
+	#2009/01/25 add tkt
+	def self.coretimeThat?(time)
+		hour = time.hour
+		(20 < hour && hour < 24)
+	end
+	#2009/01/25 add tkt
 end
