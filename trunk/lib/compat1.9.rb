@@ -16,16 +16,17 @@ end
 
 # It's not 1.9.x feature, but extention of std. classes
 #
+#2009/12/27 mod:tkt:coretime get from the configuration file
 class Time
 	def self.coretime?
 		hour = Time.now.hour
-		(20 < hour && hour < 24)
+		((S[:coretime_start] -1) < hour && hour < S[:coretime_end])
 	end
 	
 	#2009/01/25 add tkt
 	def self.coretimeThat?(time)
 		hour = time.hour
-		(20 < hour && hour < 24)
+		((S[:coretime_start] -1) < hour && hour < S[:coretime_end])
 	end
 	#2009/01/25 add tkt
 end

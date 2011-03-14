@@ -105,11 +105,18 @@ end
 
 #2009/01/25 add tkt
 #coretime:min_entries +1 -> else:min_entries.
-def min_entries_num(up, check = false)
-	(Time.coretimeThat?(up)) ? (S[:min_entries] + 1) : S[:min_entries]
+#2009/12/27 mod tkt
+# mod:added num get from the configuration file
+# add:config_min_entries_num()
+def min_entries_num(up)
+	min_check = S[:config_min_entries] ? (Time.coretimeThat?(up)) : S[:config_min_entries]
+	min_check ? config_min_entries_num() : S[:min_entries]
 end
 
-def min_entries_ready(check = false)
-	#min_entries_num(Time.now.to_f, check)
-	(Time.coretime?) ? (S[:min_entries] + 1) : S[:min_entries]
+def min_entries_ready()
+	min_entries_num(Time.now())
+end
+
+def config_min_entries_num()
+	S[:min_entries] + S[:config_min_entries_num]
 end
