@@ -48,8 +48,10 @@ class Vil
 				end
 				change_state_sync(State::Welcome)
 			}
-			addlog(wsystem(c(AUTO_PARTING, pl_dels.join('、')))) if pl_dels != []
 
+			#addlog(wsystem(c(AUTO_PARTING, pl_dels.join('、')))) if pl_dels != [] mod 2009/01/17
+			addlog(wsystem(c(AUTO_PARTING, pl_dels.join('、'),Time.now.strftime(PARTING_TIME)))) if pl_dels != []
+			
 			while @update_time < Time.now do
 				@update_time += S[:restart_minute] * 60
 			end
@@ -67,7 +69,8 @@ class Vil
 	end
 
 	def delete_player(player)
-		addlog(wsystem(c(PARTING, player.name)))
+		#addlog(wsystem(c(PARTING, player.name))) mod 2009/01/17 tkt
+		addlog(wsystem(c(PARTING, player.name,Time.now.strftime(PARTING_TIME))))
 
 		@players.exit(player)
 		change_state_sync(State::Welcome)
