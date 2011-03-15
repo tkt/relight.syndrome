@@ -64,6 +64,6 @@ S = {\
 	:access_check_dbpath => 'db/acceck.db' ,#2009/12/30 add:this db is record accessed numbers
 	:access_check_time => 15, #2009/12/30 add:this time is term of access check
 	:access_same_time => 7, #2009/12/30 add:this time is not regist address
-	:specified_lost => false, #2011/02/23 add:for lost a way  
+	:specified_lost => true, #2011/02/23 add:for lost a way  
 	:specified_vils => ['1000'], #2011/02/23 add:for anniversary  
 }
