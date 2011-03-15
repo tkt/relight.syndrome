@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="<%= @encoding %>" ?>
+<VilsInfo>
+	<title><%= GAME_TITLE %></title>
+	<link><%= @server %></link>
+	<maxEntries><%= S[:max_entries] %></maxEntries>
+	<minEntries><%= min_entries_ready() %></minEntries>
+
+	<% @active_villages.each {|vil| %>
+	<vil id="<%= vil['vid'].to_s %>">
+		<name><%= vil['name'] %></name>
+		<link>?vid=<%= vil['vid'].to_s %></link>
+		<entries><%= vil['players'] %></entries>
+		<updateTime><%= vil['start'].strftime(@timeformat) %></updateTime>
+		<status state="<%= vil['state'] %>"><%= vil['status'] %></status>
+	</vil>
+	<% } %>
+
+</VilsInfo>
+

@@ -1,0 +1,40 @@
+require 'config'
+
+T_S = {\
+	:twitter_site => 'http://api.twitter.com',
+	:id => 'twitter_acount',
+	:custmer_key => 'api_key',
+	:custmer_secret_key => 'api_secret',
+	:oa_access_token => 'access_token',
+	:oa_access_token_secret => 'access_token_secret',
+	:data_file => '/feed/dir/name/w/feed/vilsinfo.xml', # set by absolute path, but dosent use now.
+	:log => '/process/log/dir/name/twit.log', # set by absolute path, log put only at debug=true.
+	:cache_dir => S[:cache_dir],
+	:check_duplicate => true,
+	:duplicate_time => 24 * 60  * 60, # set by second
+	:debug => false,
+	:simulator_mode => false,
+}
+
+VIL_STATUS = [
+	"%1$s %2$s[ %6$s ]に人狼がいるという噂が流れています。この村の会議は%5$sに開始する予定です。宿には%3$d/%4$d人の人影が見えます。",
+	"%1$s %2$s[ %6$s ]の宿に%3$d/%4$d人の待ち人がいるようです。次に夜が明けるのは%5$sの予定です。",
+	"%1$s %2$s[ %6$s ]の夜が明けるようです。%3$d/%4$d人で話し合いを行います。次に夜が明けるのは%5$sの予定です。",
+	"%1$s %2$s[ %6$s ]の夜が明けました。%3$d/%4$d人で話し合いが行われています。",
+	"%1$s %2$s[ %6$s ]の勝敗が決定しました。次の村は%5$sに開始する予定です。",
+	"%1$s %2$s[ %6$s ]が終了した村の一覧に格納されました。",
+	"%1$s %2$s[ %6$s ]の宿に%3$d/%4$d人が集まり始めました。次に夜が明けるのは%5$sの予定です。",
+]
+
+class TwitVil
+
+	class State
+		Create	  = 0
+		Welcome   = 1
+		Ready     = 2
+		Progress  = 3
+		Party     = 4
+		End       = 5
+		Entry     = 6
+	end
+end

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="<%= @encoding %>" ?>
+<rss version="2.0"
+	xmlns:rss="http://purl.org/rss/1.0/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+>
+<channel>
+ 	<language>ja</language>
+	<title><%= GAME_TITLE %></title>
+	<link><%= @server %></link>
+	<description>WEB人狼『人狼達の黄昏::夜明し』をベースとし、スクリプトを一部改変した『<%= GAME_TITLE %>』の募集状況をお知らせするRSSです。</description>
+	<language>ja</language>
+	<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+	<pubDate><%= Time.now.strftime(@timeformat) %></pubDate>
+	<lastBuildDate><%= Time.now.strftime(@timeformat) %></lastBuildDate>
+	<guid><%= @server %>?cmd=doc</guid>
+
+	<% @active_villages.each {|vil| %>
+	<item>
+		<title><%= vil['vid'].to_s %> <%= vil['name'] %>（<%= vil['players'] %>/<%= S[:max_entries] %>） <%= vil['status'] %></title>
+		<link><%= @server %>?vid=<%= vil['vid'].to_s %></link>
+		<pubDate><%= vil['start'].strftime(@timeformat) %></pubDate>
+		<description>更新時間：<%= vil['start'].strftime('%Y/%m/%d %H:%M:%S') %></description>
+	</item>
+	<% } %>
+	 
+</channel>
+</rss>
+
+
