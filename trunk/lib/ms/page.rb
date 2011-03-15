@@ -41,7 +41,8 @@ module Page
 	end
 
 	class Index < Base
-		def initialize(login, changes, villages)
+		#mod@tkt 2009/12/30 :def initialize(login, changes, villages)
+		def initialize(login, changes, villages, addr)
 			super()
 			@footer = false
 
@@ -56,6 +57,10 @@ module Page
 				end
 				v['start_str'] = v['start'].strftime("%H時%M分")
 			}
+			#add@tkt 2009/12/30 for access check start
+			require 'ms/access'
+			@access_num = Access::Check.new(addr).result()
+			#add@tkt 2009/12/30 for access check end
 		end
 	end
 
