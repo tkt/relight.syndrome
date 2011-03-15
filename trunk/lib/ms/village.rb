@@ -26,7 +26,9 @@ class Vil
 		addlog(announce(OPENING))
 
 		player = Player.new(1, MASTER, 0)
-		add_player(player, GERT_ENTRY)
+		#2011/02/23 mod:tkt for anniversary start
+		add_player(player, specified_start_message('GERT_ENTRY'))
+		#2011/02/23 mod:tkt for anniversary end
 	end
 
 	def restart
@@ -277,7 +279,7 @@ class Vil
 			end
 			do_end = true
 		end
-
+		
 		if do_end
 			change_state_sync(State::Party)
 
@@ -289,6 +291,12 @@ class Vil
 			addlog(announce(a.join('<br>')))
 
 			@players.open_party()
+		
+			#2011/02/23 add:tkt for anniversary start
+			if specified_lost?
+				addlog(wsystem(c(specified_message('GUARD_DATE'), @guard - 1, @guard)))
+			end
+			#2011/02/23 add:tkt for anniversary end
 		end
 	end
 
@@ -418,13 +426,21 @@ class Vil
 		@players.reset_count(@date)
 
 		@players.skill_mapping()
-		@guard = Regulation.guard(@players.size, @players.wolves().size)
+		#2011/02/23 mod:tkt for anniversary start
+		@guard = guard_date()
+		#2011/02/23 mod:tkt for anniversary end
 		@rule = Regulation.rule(@players.size)
 		change_state_sync(State::Progress)
 
-		addlog(announce(START))
+		#2011/02/23 mod:tkt for anniversary start
+		addlog(announce(specified_message('START')))
+		#2011/02/23 mod:tkt for anniversary end
 		up_showlives(false)
-		record('say', @players.player(1), c(GERT_FIRST, @guard - @date, @guard - @date + 1))
+		
+		#2011/02/23 mod:tkt for anniversary start
+		$logger.debug("specified?(#{specified?}) specified_lost?(#{specified_lost?}) guard(#{@guard})  date(#{@date}) limit(#{(@guard - @date)}->#{(@guard - @date + 1)})")
+		record('say', @players.player(1), c(specified_message('GERT_FIRST'), @guard - @date, @guard - @date + 1))
+		#2011/02/23 mod:tkt for anniversary end
 		@players.player(1).dead = 1  # die, not use Player#kill()
 
 		wolves = @players.wolves()
@@ -443,7 +459,7 @@ class Vil
 		period = @period
 		if @state == State::Party
 			period = 1 * @players.size * (@date - 1)
-			$logger.debug('epilogue_period#{period}  plaersize#{@players.size} date#{(@date - 1)}')
+			$logger.debug("epilogue_period#{period}  plaersize#{@players.size} date#{(@date - 1)}")
 			if period < S[:epilogue_period_min]
 				period = S[:epilogue_period_min]
 			elsif (@players.size >= 8 || (period > S[:epilogue_period]))
@@ -459,7 +475,9 @@ class Vil
 		@phase = Phase::Sun
 		unless @state == State::Party
 			limit = @guard - @date
-			addlog(wsystem(c(SUN_PHASE, limit)))
+			#2011/02/23 mod:tkt for anniversary start
+			addlog(wsystem(c(specified_message('SUN_PHASE'), limit)))
+			#2011/02/23 mod:tkt for anniversary end
 		end
 	end
 
@@ -815,5 +833,41 @@ class Vil
 			"#{date}日目"
 		end
 	end
+	
+	#2011/02/23 add:tkt for anniversary start
+	def specified?
+		S[:specified_vils].index(@vid.to_s) != nil
+	end
+	
+	def specified_lost?
+		S[:specified_lost] && specified?
+	end
+	
+	def specified_message(default)
+		if @rule == Rule::Advance
+			specified_start_message(default)
+		else
+			eval(default)
+		end
+	end
+	
+	def specified_start_message(default)
+		if specified_lost?
+			eval(default + '_LOST')
+		else
+			eval(default)
+		end
+	end
+	
+	def guard_date
+		date = Regulation.guard(@players.size, @players.wolves().size)
+		if specified?
+			date += rand(2)
+		end
+		
+		date
+	end
+
+	#2011/02/23 add:tkt for anniversary end
 
 end
