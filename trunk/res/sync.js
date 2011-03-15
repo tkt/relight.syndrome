@@ -1,3 +1,5 @@
+var is_debug = false;
+
 function init(village_id) {
 	load(village_id);
 	setTimeout('showUpdateTimer();', 1000);
@@ -354,7 +356,7 @@ Util.createHeaders = function() {
 }
 
 Util.debug = function(string) {
-	if ($('debug')) {
+	if (is_debug && $('debug')) {
 		var d = new Date();
 		var current = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 
