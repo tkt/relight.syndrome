@@ -1,9 +1,40 @@
 <h2>終了した村の記録</h2>
 
-<table width="100%" style="padding-left: 2em;">
+<!-- 村番号ごとのリンク -->
+<% if S[:log_separate] %>
+<table class="minilist" >
+<tr>
+<td>
+<% count = 1 %>
+<% if @logindex == 0 %>
+	すべての村
+<% else %>
+	<a href="?cmd=log&logindex=0">すべての村</a>
+<% end %>
+</td>
+<% @separates.each { |sep| %>
+<%	if count % 7 == 0%>
+	</tr><tr>
+<%	end
+	count += 1
+%>
+	<td>
+<% if @logindex == sep %>
+		<%= sep %>村～
+<% else %>
+		<a href="?cmd=log&logindex=<%= sep %>"><%= sep %>村～</a>
+<% end %>
+	</td>
+<% } %>
+</tr>
+</table>
+<% end %>
+
+<!-- ログテーブル -->
+<table width="100%" style="padding-left: 0.5em; padding-right:0em;">
 <tr style="text-align: left"><th>村名</th><th>人数</th><th>1日目開始 ～ エピローグ終了</td>
-<% @villages.reverse_each {|vil| %>
-<tr><td>
+<% @villages.each {|vil| %>
+<tr><td style="padding-left:1px;">
 <a href="./?vid=<%= vil['vid'].to_s %>"><%= vil['vid'].to_s %> <%= vil['name'] %></a>
 </td>
 <td>
@@ -16,3 +47,39 @@
 </tr>
 <% } %>
 </table>
+
+<!-- 村番号ごとのリンク -->
+<% if S[:log_separate] %>
+	<table class="minilist" >
+	<tr>
+	<td class="desc" colspan="<%=@separates.size + 1 %>"><%=@last_vid%>の村のうち、
+	<% if @logindex == '' %>最新の<% end %>
+	<%= @villages.size %>村を表示しています。</td>
+	</tr>
+	<tr>
+	<td>
+	<% count = 1 %>
+	<% if @logindex == 0 %>
+		すべての村
+	<% else %>
+		<a href="?cmd=log&logindex=0">すべての村</a>
+	<% end %>
+	</td>
+
+	<% @separates.each { |sep| %>
+	<%	if count % 7 == 0%>
+		</tr><tr>
+	<%	end
+		count += 1
+	%>
+	<td>
+	<% if @logindex == sep %>
+		<%= sep %>村～
+	<% else %>
+		<a href="?cmd=log&logindex=<%= sep %>"><%= sep %>村～</a>
+	<% end %>
+	</td>
+	<% } %>
+	</tr>
+	</table>
+<% end %>
