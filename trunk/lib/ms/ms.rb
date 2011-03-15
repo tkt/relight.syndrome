@@ -261,7 +261,8 @@ class CWolf
 			build_village()
 		end
 
-		print Page::Index.new(@login.form, changes, villages).result()
+		#mod@tkt 2009/12/30:print Page::Index.new(@login.form, changes, villages).result()
+		print Page::Index.new(@login.form, changes, villages, @req.remote_addr).result()
 	end
 
 	def handle_mkvil

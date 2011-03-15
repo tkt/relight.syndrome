@@ -60,4 +60,8 @@ S = {\
 	:coretime_end => 23, #2009/12/27 add:this time is end of coretime
 	:log_separate => true, #2009/12/29 add:this flag enable to display separated village's logs
 	:log_size => 100, #2009/12/29 add:this size is size of separate
+	:display_access => true, #2009/12/30 add:this flag enable to display accessed numbers
+	:access_check_dbpath => 'db/acceck.db' ,#2009/12/30 add:this db is record accessed numbers
+	:access_check_time => 15, #2009/12/30 add:this time is term of access check
+	:access_same_time => 7, #2009/12/30 add:this time is not regist address
 }

@@ -17,6 +17,15 @@
 <td nowrap><%= v['state_str'] %></td>
 </tr>
 <% } %>
+
+<% if S[:display_access] %>
+<!-- アクセス者 -->
+<tr><td colspan="2"></td></tr>
+<tr>
+<td colspan="2" class="desc" style="color:#ccc; padding-left:16px;"><%= S[:access_check_time] %>分以内にこのページを見た人は　<%= @access_num  %>　人です。</td>
+</tr>
+<% end %>
+
 </table>
 
 <p>
@@ -42,7 +51,7 @@
 <a href="http://bsoup.skr.jp/uowolf/nanasi.html"><img src="<%= S[:image_dir] %>uo.jpg" alt="人狼名無し村"></a>
 <a href="http://mshe.skr.jp/"><img src="<%= S[:image_dir] %>jbbq.jpg" alt="四国"></a>
 </p>
-夜明けをどきどきしながら待っていたあの頃にもどろう<br>
+夜明けをどきどきしながら待っていたあの頃にもどろう<br />
 <a href="./"><%= LW_NAME %></a> <%= LW_VERSION %> by <a href="http://wtl.rdy.jp/d/">twilight</a>, 
 (based on <a href="http://mshe.skr.jp/">四国</a> by <a href="http://shinh.skr.jp/">she</a>), 
 and face graphics by <a href="http://www.f7.dion.ne.jp/~wwe/">WWE</a>
