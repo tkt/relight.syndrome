@@ -281,7 +281,8 @@ class CWolf
 	end
 
 	def handle_reg
-		print Page::Regulation.new(@login.form).result()
+		#print Page::Regulation.new(@login.form).result() mod 2008/11/08 tkt: hide reg
+		raise ErrorMsg.new("編成は秘密です。")
 	end
 
 	def handle_doc
