@@ -60,10 +60,11 @@ module Page
 	end
 
 	class LogIndex < Base
-		def initialize(login)
+		#mod@tkt 2009/12/29 def initialize(login)
+		def initialize(login, logindex)
 			require 'cache'
 			super()
-
+			
 			ckey = File.mtime(S[:vilsdb_path]).to_i.to_s
 			cache = Cache::FileCache.new(:root_dir => S[:cache_dir] + 'log/')
 
@@ -75,9 +76,97 @@ module Page
 				cache.set_object(ckey, @villages)
 			end
 
+			#add@tkt 2009/12/29:for log seperate start
+			if S[:log_separate]
+				log(logindex)
+			else
+				reverse()
+			end
+       		#add@tkt 2009/12/29:for log seperate end
 			@login = login
 			@title = '終了した村の記録'
 		end
+		
+		#add@tkt 2009/12/29:for log separate start
+		def log(logindex)
+			initilize_log(logindex)
+			separates()
+			if @logindex == ''
+				recently()
+			elsif @logindex == 0
+			
+			else
+				order_logindex()
+			end
+		end
+		
+		def initilize_log(logindex)
+			@logindex = (logindex == '') ? logindex : logindex.to_i
+			@logsize = S[:log_size]
+			@last_vid = get_recently_index() - 1
+		end
+		
+		def separates()
+			@separates = []
+			separate = @villages.size / @logsize
+			if @villages.size % @logsize == 0 
+				separate -= 1
+			end
+			
+			index = 0
+			while index <= separate
+				@separates[index] = index * @logsize + 1
+				index += 1
+			end
+		end
+		
+	    def recently()
+			max = @villages.size + 1
+			min = get_min_index(max)
+			limit(min, max)
+			reverse()
+	    end
+	    
+	    def order_logindex()
+			min = @logindex.to_i
+	    	max = get_max_index(min)
+			limit(min, max)
+	    end
+
+	    def get_min_index(max)
+	      min = 1
+	      if max >= @logsize
+	        min = max - @logsize
+	      end
+	      min
+	    end
+	    def get_max_index(min)
+	      max = min + @logsize
+	      if max > @villages.size
+	      	max = @villages.size + 1
+	      end
+	      max
+	    end
+	    
+	    def get_recently_index()
+			recent = 1
+			vldb = Store.new('db/vil.db')
+			vldb.transaction do
+				recent = vldb['recent_vid'].to_i
+			end
+			recent
+	    end
+	    
+	    def limit(startIndex, endIndex)
+			@villages.delete_if{|v|
+				(startIndex > v['vid'].to_i || v['vid'].to_i >= endIndex)
+			}
+	    end
+	    
+	    def reverse()
+			@villages.reverse!
+	    end
+	    #add@tkt 2009/12/29:for log separate end
 	end
 
 	class History < Base

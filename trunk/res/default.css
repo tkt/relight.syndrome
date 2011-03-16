@@ -297,7 +297,7 @@ table.list th {
 
 .main {
  margin: 8px 16px 8px 16px;
- }
+}
 
 /* Id Elements */
 
@@ -366,3 +366,21 @@ html>/**/body #vilheader{
 #player #exitform {
  text-align: right;
 }
+
+
+/**add@tkt 2009/12/29:for log seperate start**/
+table.minilist {
+  border-collapse: collapse;
+  margin: 3px 0px 3px 0px;
+}
+table.minilist td {
+  font-size: 80%;
+  border: 1px solid #223;
+  padding: 3px 6px 3px 6px;
+}
+table.minilist td.desc {
+  font-size: 75%;
+  padding-left:16px;
+  color:#ccc;
+}
+/**add@tkt 2009/12/29:for log seperate end**/

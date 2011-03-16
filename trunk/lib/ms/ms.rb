@@ -290,7 +290,8 @@ class CWolf
 	end
 
 	def handle_log
-		print Page::LogIndex.new(@login.form).result()
+		#mod@tkt 2009/12/29: print Page::LogIndex.new(@login.form).result()
+		print Page::LogIndex.new(@login.form, @req['logindex']).result()
 	end
 
 	def handle_vid
