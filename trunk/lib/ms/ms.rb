@@ -111,12 +111,16 @@ class CWolf
 				raise ErrorMsg.new('既に夜が明けています')
 			end
 
-			$logger.debug('post by ' + @login.userid + "(#{pid})")
+			$logger.debug("post [#{type}] by " + @login.userid + "(#{pid})")
 			vil.record(type, player, msg)
 		end
 	end
 
 	def handle_entry
+		#tkt@add:2011/02/21 for mobile
+		raise ErrorMsg.new("携帯端末ではエントリーできません。") if mobile?
+		#tkt@add:2011/02/21 for mobile
+
 		raise ErrorMsg.new("不正な村IDです") if (@vid == 0)
 
 		pid = @req['pid']
@@ -528,12 +532,21 @@ class CWolf
 	def handle_error(error)
 		if error.class == ErrorMsg
 			print error
-			File.open(S[:fatallog_path], 'a') {|fh| fh.write "\n#{Time.now.to_s}\n#{error}\n" }
+			File.open(S[:fatallog_path], 'a') {|fh| fh.write "\n#{Time.now.to_s}\n#{@login.userid}(#{@req.remote_addr})\n#{error}\n" }
 		else
 			er  = CGI.escapeHTML("#{error.to_s}\n")
 			er << CGI.escapeHTML("#{error.backtrace.join("\n")}\n")
 			print "<pre>\n#{er}</pre>\n"
-			File.open(S[:fatallog_path], 'a') {|fh| fh.write "\n#{Time.now.to_s}\n#{er}\n" }
+			File.open(S[:fatallog_path], 'a') {|fh| fh.write "\n#{Time.now.to_s}\n#{@login.userid}(#{@req.remote_addr})\n#{er}\n" }
 		end
+	end
+
+	def mobile?
+		ua = %w(DoCoMo KDDI Up.Browser SoftBank Vodafone MOT- J-PHONE)
+		ua.concat(%w(WILLCOM DDIPOCKET PDXGW NetFront PalmOS L-mode Nitro))
+		ua.concat(%w(PlayStation PLAYSTATION Wii))
+		ua.concat(['Windows CE', 'Opera Mini', 'pda browser'])
+		
+		[] != ua.select {|u| @req.user_agent.index(u) }
 	end
 end
