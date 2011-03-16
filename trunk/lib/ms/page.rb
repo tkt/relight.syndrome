@@ -205,7 +205,8 @@ module Page
 
 			if @vil.state == Vil::State::Welcome
 				#2009/01/25 mod tkt for min_entries by coretime|| min_entries = (@vil.first_restart) ? S[:min_entries] : S[:apply_advance_num]
-				min_entries = (@vil.first_restart) ? min_entries_num(@up, true) : S[:apply_advance_num]
+				#2009/12/27 mod tkt for min_entries by configuration
+				min_entries = (@vil.first_restart) ? min_entries_num(@up) : S[:apply_advance_num]
 				_ << c(SHOW_UPDATE_PR_STATIC, @up.hour, @up.min, @up.sec, min_entries)
 			else
 				_ << c(SHOW_UPDATE_STATIC, @up.hour, @up.min, @up.sec)

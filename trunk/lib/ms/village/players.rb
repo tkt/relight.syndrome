@@ -87,7 +87,8 @@ class Vil
 
 		def ready?
 			#2009/01/25 mod tkt for min_entries by coretime|| size() >= S[:min_entries]
-			size() >= min_entries_ready(true)
+			#2009/12/27 mod tkt for min_entries by configuration
+			size() >= min_entries_ready()
 		end
 
 		def adv_ready?

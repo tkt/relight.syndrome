@@ -55,4 +55,8 @@ S = {\
 	:guard_fixed_num => 8,#add 2008/11/07 tkt:guard is fixed for under this number
 	:guard_fixed_day => 5,#add 2008/11/07 tkt:this day is guard fixed
 	:epilogue_period_min => 10, #add 2008/12/7 tkt:minutes for epilogue modified, limit min.
+	:config_min_entries => true, #this flag enable to min_entries + config_min_entries_num
+	:config_min_entries_num => 2, #this num is add to min_entries
+	:coretime_start => 22, #this time is start of coretime
+	:coretime_end => 23, #this time is end of coretime
 }
