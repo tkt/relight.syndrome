@@ -12,6 +12,7 @@ PLEASE_LOGIN = '参加者はログインして下さい。'
 ID_LOCKED = "ID: <strong>%1</strong> はロックされているため、エントリーできません。<hr>%2"
 ID_WARN = 'このIDはロック警告中です。自重して下さい。ロックされる覚えがない方は掲示板か電子メールでお問い合わせ下さい。'
 
+#tkt@mod:2011/03/17 for bug fix(dead man eating) start
 HEAD1 = <<END
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ja">
@@ -22,9 +23,11 @@ HEAD1 = <<END
 <meta name="robots" content="nofollow">
 <link rel="stylesheet" type="text/css" href="#{S[:css_dir]}default.css">
 <script type="text/javascript" src="#{S[:script_dir]}prototype.js"></script>
+<script type="text/javascript" src="#{S[:script_dir]}jquery.js"></script>
 <script type="text/javascript" src="#{S[:script_dir]}sync.js"></script>
 <script type="text/javascript" src="#{S[:script_dir]}addon.js"></script>
 END
+#tkt@mod:2011/03/17 for bug fix(dead man eating) end
 
 HEAD2 = <<END
 </head>

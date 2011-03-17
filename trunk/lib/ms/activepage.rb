@@ -147,13 +147,33 @@ module ActivePage
 
 		def result?(state)
 			s = _state()
-			#(%w(prevote vote room apology finalvote).index(s) || s != state) mod 2008/10/16 tkt
-			(%w(prevote vote room apology finalvote night).index(s) || s != state)
+			(%w(prevote vote room apology finalvote).index(s) || s != state)
 		end
 
 		def sync_result
 			result().gsub(%r{<div id="player_wrap">\n<div id="player">(.*)</div>}m, '\1')
 		end
+
+		#tkt@add:2011/03/17 for bug fix(dead man eating) start
+		def need_resync?
+			$logger.debug("ActionBalloon::need_resync? state:#{@state} && player(#{@player.pid}) is wolf:#{@player.can_whisper}-- start")
+			return false unless %w(night).index(@state)
+			return false unless @player.can_whisper
+
+			killed = @vil.players.killed(@vil.date)
+			result = false
+			@vil.rooms.room(@vil.date, @player).each {|pid|
+				result = killed.index {|v| v.pid == pid} != nil
+				break if result
+			}
+			
+			#change state
+			@state += '_actbox_update' if result
+			
+			$logger.debug("ActionBalloon::need_resync? result:#{result} state:#{@state} -- end")
+			result
+		end
+		#tkt@add:2011/03/17 for bug fix(dead man eating) end
 
 		private
 

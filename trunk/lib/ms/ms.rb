@@ -398,7 +398,8 @@ class CWolf
 
 							actbox = ActivePage::ActionBalloon.new(@login.form(vil.vid), player, vil)
 							if page.need_actbox_resync? && \
-								(actbox.result?(actstate) || @player.dead != player.dead || date_forward)
+								#(actbox.result?(actstate) || @player.dead != player.dead || date_forward) tkt@mod:2011/03/17 for bug fix(dead man eating)
+								(actbox.result?(actstate) || @player.dead != player.dead || date_forward || actbox.need_resync?)
 
 								act = actbox.sync_result()
 							else

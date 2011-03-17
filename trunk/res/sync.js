@@ -207,18 +207,23 @@ function rcv_display(res, json) {
 				Util.debug('search pattern matched');
 				act = $('actstate').innerHTML;
 				
-				//add 2008/10/26 tkt mod 2008/12/24
-				if ($(act)) { var message = $F(act); }
-				
-				if ($('whisper')) { var content = $F('whisper'); }
-				$('player').innerHTML = ret[1];
-				if (content) { $('whisper').value = content; }
-
-				//add 2008/10/26 tkt mod 2008/12/24
-				if(act == 'night' && $('player').innerHTML.length != ret[1].length && message)
+				//tkt@mod:2011/03/17 for bug fix(dead man eating) start
+				if(ret[0] == 'night_actbox_update')
 				{
-					if ($(act)) { $(act).value = message; }
+					if($('player').innerHTML.length != ret[1].length && jQuery('form#skillwolf:visible').length >= 0)
+					{
+						jQuery('select#skilltarget').html(jQuery(jQuery(ret[1]).children('select#skilltarget').get(0)).html());
+					}
 				}
+				else
+				{
+					
+					if ($('whisper')) { var content = $F('whisper'); }
+					$('player').innerHTML = ret[1];
+					if (content) { $('whisper').value = content; }
+					
+				}
+				//tkt@mod:2011/03/17 for bug fix(dead man eating) end
 			}
 		}
 		if (ret[5] && ret[5] != '') {
