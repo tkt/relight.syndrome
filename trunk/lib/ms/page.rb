@@ -222,6 +222,17 @@ module Page
 		end
 	end
 
+	#tkt@add:2011/03/20 for custom rule page start
+	class DocumentCustom < Base
+		def initialize(login)
+			super()
+
+			@login = login
+			@title = '追加ルール'
+		end
+	end
+	#tkt@add:2011/03/20 for custom rule page end
+	
 	class Regulation < Base
 		def initialize(login)
 			require 'cache'

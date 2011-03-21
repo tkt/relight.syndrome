@@ -293,6 +293,12 @@ class CWolf
 	def handle_doc
 		print Page::Document.new(@login.form).result()
 	end
+	
+	#tkt@add:2011/03/20 for custom rule page start
+	def handle_docc
+		print Page::DocumentCustom.new(@login.form).result()
+	end
+	#tkt@add:2011/03/20 for custom rule page end
 
 	def handle_log
 		#mod@tkt 2009/12/29: print Page::LogIndex.new(@login.form).result()
@@ -501,7 +507,11 @@ class CWolf
 			end
 
 			cmd = @req['cmd']
-			if %w(mkvil log doc history info chars reg).index(cmd)
+			
+			#tkt@mod:2011/03/20 for custom rule page start
+			if %w(mkvil log doc docc history info chars reg).index(cmd)
+			#tkt@mod:2011/03/20 for custom rule page end
+	
 				__send__('handle_' + cmd)
 			elsif (@vid != 0)
 				handle_vid()
