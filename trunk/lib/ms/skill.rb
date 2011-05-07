@@ -81,17 +81,20 @@ class Skill
 		def action(village, player, target)
 			room_number = village.rooms.number(village.date, player.pid)
 
+			#mod@tkt 2011/04/20:bug fix
 			if target
 				t = village.players.player(target)
-				if t.live?
-					_room_number = village.rooms.number(village.date, t.pid)
 
-					return nil if (@do_action || room_number != _room_number)
-					_action(village, player, t, room_number)
-				end
+				return nil if t.dead?
+				_room_number = village.rooms.number(village.date, t.pid)
+
+				return nil if (@do_action || room_number != _room_number)
+				_action(village, player, t, room_number)
+				
 			else
 				_pass_action(village, player)
 			end
+			#mod@tkt 2011/04/20:bug fix
 		end
 
 		def _action(vil, pl, tr, number)

@@ -228,7 +228,11 @@ class CWolf
 		@vildb.transaction {
 			vil = get_vil(@vid)
 			player = vil.players.player(@login)
-			player.skill_set(vil, target)
+			#mod@tkt 2011/04/23:bug fix
+			if !player.skill_set(vil, target)
+				raise ErrorMsg.new("失敗しました。")
+			end
+			#mod@tkt 2011/04/23:bug fix
 		}
 	end
 

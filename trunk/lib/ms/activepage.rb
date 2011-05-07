@@ -74,6 +74,9 @@ module ActivePage
 
 		def need_actbox_resync?
 			ret = false
+			#mod@tkt 2011/04/23:bug fix, have to return false?? true?
+			return false if (@discussions.size - @mid) <= 0 || @discussions.size < (@discussions.size - @mid)
+			#mod@tkt 2011/04/23:bug fix
 			dis = @discussions[0, @discussions.size - @mid].join.chomp
 			%w(announce nextra system vote room apology).each {|sysword|
 				if dis.index(sysword)
