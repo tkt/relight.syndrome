@@ -20,6 +20,10 @@ class Login
 	end
 
 	def initialize(cgi)
+		#2010/01/14:add:tkt for change proc of out log start
+		@acclogger = Logger.new('db/accesslogin.log')
+		#2010/01/14:add:tkt for change proc of out log end
+		
 		userdb = Store.new('db/user.db')
 
 		cookie = cgi.cookies['login']
@@ -29,13 +33,18 @@ class Login
 			vals = cookie[0].split(/,/)
 			@sig, @userid = vals[0], vals[1]
 
+			#2011/07/10:mod:tkt rollback for speed upgrade start
+			#2010/01/13:mod:tkt for speed upgrade start
 			@login = userdb.transaction(true) {|db|
 				db[@userid]['sig'] == @sig if db.root?(@userid)
 			}
+			#2010/01/13:mod:tkt for speed upgrade end
+			#2011/07/10:mod:tkt rollback for speed upgrade end
 		end
 
 		cmd = cgi['cmd']
 		if (cmd == 'logout')
+			@acclogger.info("[ログイン] logout #{@userid} from #{cgi.remote_addr}")
 			@login = false
 			@sig, @userid = '', ''
 			set_cookie(cgi)
@@ -43,10 +52,13 @@ class Login
 			@userid = cgi['userid'].strip
 			@sig = cgi['sig'].strip
 			raise ErrorMsg.new('認識できないIDです') if @userid == ''
-			raise ErrorMsg.new('IDが長すぎます') if @userid.size > 20
+			raise ErrorMsg.new("IDが長すぎます [#{@userid}]") if @userid.size > 20
+			#raise ErrorMsg.new('IDが長すぎます') if @userid.size > 20 mod 2009/01/13 tkt
 			unless $DEBUG
 				if (@sig == '' || @sig == 'LOCKED')
-					raise ErrorMsg.new('認識できないパスワードです')
+					#raise ErrorMsg.new('認識できないパスワードです') mod 2009/01/21 tkt
+					#2010/01/13:del:tkt File.open('db/accesslogin.log', 'a') {|fh| fh.write "[#{Time.now.to_s}] 認識できないパスワードです #{@userid} from #{cgi.remote_addr}\n" }
+					raise ErrorMsg.new("認識できないパスワードです [#{@userid}] to #{@sig}")
 				end
 			end
 			userdb.transaction do
@@ -57,8 +69,13 @@ class Login
 				if userdb[@userid]['sig'] == @sig
 					@login = true
 					set_cookie(cgi)
+					#2010/01/13:mod:tkt for logger
+					@acclogger.info("[ログイン] login #{@userid} from #{cgi.remote_addr}")
 				else
-					raise ErrorMsg.new("認証エラー")
+					#2010/01/13:mod:tkt for logger
+					@acclogger.warn("[ログイン] 認証エラー #{@userid} to #{@sig} from #{cgi.remote_addr}")
+					raise ErrorMsg.new("認証エラー [#{@userid}]")
+					#raise ErrorMsg.new("認証エラー")  mod 2009/01/13 tkt
 				end
 			end
 		end
