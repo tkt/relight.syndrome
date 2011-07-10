@@ -33,24 +33,21 @@ class Login
 			vals = cookie[0].split(/,/)
 			@sig, @userid = vals[0], vals[1]
 
+			#2011/07/10:mod:tkt rollback for speed upgrade start
 			#2010/01/13:mod:tkt for speed upgrade start
-			#@login = userdb.transaction(true) {|db|
-			#	db[@userid]['sig'] == @sig if db.root?(@userid)
-			#}
-			rec = nil
-			userdb.transaction(true) {|db|
-				rec = db.fetch(@userid, nil)
+			@login = userdb.transaction(true) {|db|
+				db[@userid]['sig'] == @sig if db.root?(@userid)
 			}
-			@login = rec['sig'] == @sig if rec != nil
 			#2010/01/13:mod:tkt for speed upgrade end
+			#2011/07/10:mod:tkt rollback for speed upgrade end
 		end
 
 		cmd = cgi['cmd']
 		if (cmd == 'logout')
+			@acclogger.info("[ログイン] logout #{@userid} from #{cgi.remote_addr}")
 			@login = false
 			@sig, @userid = '', ''
 			set_cookie(cgi)
-			@acclogger.info("[ログイン] logout #{@userid} from #{cgi.remote_addr}")
 		elsif (cmd == 'login')
 			@userid = cgi['userid'].strip
 			@sig = cgi['sig'].strip
