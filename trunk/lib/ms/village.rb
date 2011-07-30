@@ -4,8 +4,10 @@ class Vil
 
 	attr_reader :name, :date, :vid, :state, :players, :rule
 	attr_reader :userid, :winner, :phase, :rooms, :voting
-	attr_reader :first_restart, :guard
-
+	#2011/07/29 mod:tkt for lost start
+	attr_reader :first_restart, :guard, :lost_guard
+	#2011/07/29 mod:tkt for lost end
+	
 	attr_accessor :update_time
 
 	def initialize(name, vid, userid, update_time)
@@ -20,6 +22,10 @@ class Vil
 		@phase = Phase::Sun
 		@prevote = true
 		@voting = []
+		
+		#2011/07/29 mod:tkt for lost start
+		@lost_guard = false
+		#2011/07/29 mod:tkt for lost end
 	end
 
 	def start
@@ -293,7 +299,7 @@ class Vil
 			@players.open_party()
 		
 			#2011/02/23 add:tkt for anniversary start
-			if specified_lost?
+			if @lost_guard
 				addlog(wsystem(c(specified_message('GUARD_DATE'), @guard - 1, @guard)))
 			end
 			#2011/02/23 add:tkt for anniversary end
@@ -424,12 +430,15 @@ class Vil
 		up_uptime()
 		@date += 1
 		@players.reset_count(@date)
-
+		#2011/07/29 mod:tkt for lost start
+		@rule = Regulation.rule(@players.size)
+		@lost_guard = lost?
+		#2011/07/29 mod:tkt for lost end
+		
 		@players.skill_mapping()
 		#2011/02/23 mod:tkt for anniversary start
 		@guard = guard_date()
 		#2011/02/23 mod:tkt for anniversary end
-		@rule = Regulation.rule(@players.size)
 		change_state_sync(State::Progress)
 
 		#2011/02/23 mod:tkt for anniversary start
@@ -438,7 +447,7 @@ class Vil
 		up_showlives(false)
 		
 		#2011/02/23 mod:tkt for anniversary start
-		$logger.debug("specified?(#{specified?}) specified_lost?(#{specified_lost?}) guard(#{@guard})  date(#{@date}) limit(#{(@guard - @date)}->#{(@guard - @date + 1)})")
+		$logger.debug("specified?(#{specified?}) @lost_guard(#{@lost_guard}) guard(#{@guard})  date(#{@date}) limit(#{(@guard - @date)}->#{(@guard - @date + 1)})")
 		record('say', @players.player(1), c(specified_message('GERT_FIRST'), @guard - @date, @guard - @date + 1))
 		#2011/02/23 mod:tkt for anniversary end
 		@players.player(1).dead = 1  # die, not use Player#kill()
@@ -835,16 +844,17 @@ class Vil
 	end
 	
 	#2011/02/23 add:tkt for anniversary start
+	#2011/07/29 mod:tkt for lost start
 	def specified?
 		S[:specified_vils].index(@vid.to_s) != nil
 	end
 	
-	def specified_lost?
-		S[:specified_lost] && specified?
+	def lost?
+		S[:specified_lost] && (@rule == Rule::Advance) && (specified? || (rand(2) == 1))
 	end
 	
 	def specified_message(default)
-		if @rule == Rule::Advance
+		if @lost_guard
 			specified_start_message(default)
 		else
 			eval(default)
@@ -852,7 +862,7 @@ class Vil
 	end
 	
 	def specified_start_message(default)
-		if specified_lost?
+		if @lost_guard
 			eval(default + '_LOST')
 		else
 			eval(default)
@@ -861,13 +871,14 @@ class Vil
 	
 	def guard_date
 		date = Regulation.guard(@players.size, @players.wolves().size)
-		if specified?
-			date += rand(2)
+		if @lost_guard
+			date += rand(3)
 		end
 		
 		date
 	end
-
+	#2011/07/29 mod:tkt for lost end
+	
 	#2011/02/23 add:tkt for anniversary end
 
 end
