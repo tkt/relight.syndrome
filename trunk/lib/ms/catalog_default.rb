@@ -130,7 +130,9 @@ WOLF_WIN = 'もう人狼に抵抗できるほどの村人は残っていない�
 SYSTEM_EXIT = 'この村は廃村されることになりました。<br />'
 
 #2011/02/23 add:tkt for anniversary start
-GUARD_DATE_LOST = 'ガード到着日は%1日後の%2日目でした。'
+#2011/07/29 mod:tkt for lost start
+GUARD_DATE_LOST = 'ガード到着日は%1日後の%2日目だった。'
+#2011/07/29 mod:tkt for lost end
 #2011/02/23 add:tkt for anniversary end
 
 # 参加
