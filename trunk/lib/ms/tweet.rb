@@ -41,6 +41,7 @@ class Twit
 		@cache_key = 'cache_vids'
 		@cache = Cache::FileCache.new(:root_dir => T_S[:cache_dir] + 'feed/twit')
 		@vids = get_vids()
+		@active_villages = nil
 	end
 	
 	def put()
@@ -99,7 +100,15 @@ class Twit
 	#tkt@add:2011/02/19 end
 	
 	def get_xml()
-		XML::Vil.new('').read(Feed::VilsInfo.new().get_xml())
+		debug("get_xml")
+		vils = Feed::VilsInfo.new()
+		debug("get vils xml")
+		xml = vils.get_xml()
+		debug("write feed")
+		Feed::RSS20.new('', vils.active_villages).write()
+		
+		debug("read xml")
+		XML::Vil.new('').read(xml)
 	end
 	
 	def get_vids()

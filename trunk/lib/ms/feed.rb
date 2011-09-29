@@ -6,8 +6,10 @@ module Feed
 	DIR_FEED = 'feed'
 
 	class Base
+		attr_reader :active_villages
+		
 		#sateŽw’è
-		def initialize(outfile, timeformat = '%%', state = '', header = 'application/xml')
+		def initialize(outfile, active_vils = nil, timeformat = '%%', state = '', header = 'application/xml')
 			klass = self.class.to_s.gsub(/.*::/ , '').downcase
 			@encoding = 'utf-8'
 			@suffix = '.rxml'
@@ -20,7 +22,9 @@ module Feed
 			
 			Dir.mkdir(DIR_FEED) unless File.exist?(DIR_FEED)
 			
-			if vil_update?
+			if active_vils != nil
+				get_actived_villages(active_vils)
+			elsif vil_update?
 				if state =~ /\d+/
 					get_state_villages(state.to_i)
 				else
@@ -31,7 +35,9 @@ module Feed
 		
 		def write()
 			#if @active_villages.size > 0
-				File.open(DIR_FEED + '/' + @outfile, "w").write(build())
+				path = DIR_FEED + '/' + @outfile
+				File.delete(path) if File.exist?(path)
+				File.open(path, "w").write(build())
 			#end
 		end
 		
@@ -59,6 +65,11 @@ module Feed
 		
 		def get_state_villages(state)
 			@active_villages = get_villages().select {|v| v['state'] == state}.reverse
+			set_vil_detail()
+		end
+
+		def get_actived_villages(vils)
+			@active_villages = vils
 			set_vil_detail()
 		end
 		
@@ -149,7 +160,7 @@ module Feed
 
 	class VilsInfo < Base
 		def initialize(state = '')
-			super('vilsinfo.xml', '%Y/%m/%d %H:%M:%S', state)
+			super('vilsinfo.xml', nil, '%Y/%m/%d %H:%M:%S', state)
 		end
 		
 	end
@@ -157,15 +168,15 @@ module Feed
 	class ActiveVils < Base
 		def initialize()
 			#super('active_vils.xml', '%Y/%m/%d %H:%M:%S')
-			super('vilsinfo.xml', '%Y/%m/%d %H:%M:%S')
+			super('vilsinfo.xml', nil, '%Y/%m/%d %H:%M:%S')
 			@fp = 'skel/vilsinfo' + @suffix
 		end
 		
 	end
 
 	class RSS20 < Base
-		def initialize(state = '')
-			super('rss2.0.xml', '%a, %d %b %Y %H:%M:%S %Z', state, 'application/rss+xml')
+		def initialize(state = '', active_vils = nil)
+			super('villages.rss2.xml', active_vils, '%a, %d %b %Y %H:%M:%S %Z', state, 'application/rss+xml')
 		end
 	end
 
