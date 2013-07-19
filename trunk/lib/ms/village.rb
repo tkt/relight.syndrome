@@ -853,16 +853,25 @@ class Vil
 		S[:specified_lost] && (@rule == Rule::Advance) && (specified? || (rand(2) == 1))
 	end
 	
+	#
+	#def specified_message(default)
+	#	if @lost_guard
+	#		specified_start_message(default)
+	#	else
+	#		eval(default)
+	#	end
+	#end
+	
 	def specified_message(default)
 		if @lost_guard
-			specified_start_message(default)
+			eval(default + '_LOST')
 		else
 			eval(default)
 		end
 	end
 	
 	def specified_start_message(default)
-		if @lost_guard
+		if specified?
 			eval(default + '_LOST')
 		else
 			eval(default)
