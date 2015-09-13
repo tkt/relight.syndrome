@@ -27,7 +27,7 @@ How to use
 ----------
 * ruby1.8にて動作します。
 * プロセス制御のため、「duet.rb」L17のプロセス名を、環境にあわせて変更してください。
-* 募集状況出力には、rexml/document,kconv,rubygems,rubytter,OAuthライブラリを使用。ライブラリは同梱していません。
+* 募集状況出力には、rexml/document,kconv,rubygems,twitterのgemを使用。gemは同梱していません。
 * バッチ系のshは同梱していません。適当に作成してcron等でキックしてください。
 
 
