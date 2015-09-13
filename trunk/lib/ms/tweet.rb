@@ -1,17 +1,20 @@
 #2010/01/15:add module:tkt for out entries data
 #2011/02/12:mod module:tkt for mod to entries data get
 #2011/02/19:mod module:tkt for add to entry tweet mode
+#2015/09/09:mod module:tkt for dispatch 5th twitter api
 $LOAD_PATH.unshift('./lib')
 require 'logger'
 require 'rubygems'
-require 'rubytter'
-require 'oauth'
+#require 'rubytter'
+#require 'oauth'
+require "twitter"
 require 'config'
 require 'twit_config'
 require 'cache'
 require 'ms/xml'
 require 'ms/village/const'
 require 'ms/feed'
+require 'time'
 
 class Twit
 	
@@ -22,19 +25,28 @@ class Twit
 		end
 		
 		#make OAuth
-		consumer = OAuth::Consumer.new(
-			T_S[:custmer_key],
-			T_S[:custmer_secret_key],
-			:site => T_S[:twitter_site]
-		)
-		token = OAuth::AccessToken.new(
-			consumer,
-			T_S[:oa_access_token],
-			T_S[:oa_access_token_secret]
-		)
+		#consumer = OAuth::Consumer.new(
+		#	T_S[:custmer_key],
+		#	T_S[:custmer_secret_key],
+		#	:site => T_S[:twitter_site]
+		#)
+		#token = OAuth::AccessToken.new(
+		#	consumer,
+		#	T_S[:oa_access_token],
+		#	T_S[:oa_access_token_secret]
+		#)
 		
 		# make twitter client
-		@client = OAuthRubytter.new(token)
+		#@client = OAuthRubytter.new(token)
+		@client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = T_S[:custmer_key]
+		  config.consumer_secret     = T_S[:custmer_secret_key]
+		  config.access_token        = T_S[:oa_access_token]
+		  config.access_token_secret = T_S[:oa_access_token_secret]
+		end
+		
+		#@client.update("It is fine today. It is fine today.")
+		
 		@timelines = []
 		
 		#cache data
@@ -126,6 +138,7 @@ class Twit
 			timelines = @client.user_timeline(T_S[:id])
 			timelines.each { |status|
 				#puts status.text todo
+				#puts status.created_at
 				if((Time.now - createTime(status.created_at)) <= T_S[:duplicate_time].to_i)
 					@timelines.push(status.text)
 				end
@@ -177,8 +190,9 @@ class Twit
 	
 	#create time object by yyyy/mm/dd hh:mm:ss
 	def createTime(data)
-		dates = ParseDate.parsedate(data)
-		Time.gm(dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6])
+		#dates = ParseDate.parsedate(data)
+		#Time.gm(dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6])
+		data
 	end
 	
 	def debug(log)
